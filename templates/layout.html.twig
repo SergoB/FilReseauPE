@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="templates/css/bootstrap.css">
+    <link rel="stylesheet" href="templates/css/style.css">
+
+    <title>Fil Réseau : Votre outil de gestion des demandes</title>
+  </head>
+
+
+  <body>
+      {% block navbar %}
+          <ul class="container-fluid navbar nav nav-pills">
+              <a class="col-lg-2 home" href="index.php"><h3>Fil Réseau</h3></a>
+              <li role="presentation" class="navElement"><a href="demande.php">Nouvelle demande</a></li>
+              <li role="presentation" class="navElement"><a href="suiviDemandes.php">Mes demandes</a></li>
+              <li role="presentation" class="navElement"><a href="bibliotheque.php">Bibliothèque</a></li>
+              <li role="presentation" class="navElement"><a href="#">Contactez-nous</a></li>
+              <p class="blocUser">Bienvenue Manager - <a href="#">Déconnexion</a></p>
+          </ul>
+      {% endblock %}
+
+      {% block body %}
+
+      {% endblock %}
+  </body>
+
+
+
+
+
+</html>

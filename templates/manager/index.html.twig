@@ -1,0 +1,102 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block body %}
+<section class="container">
+  <div class="intro">
+    <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
+    <p>Vous avez besoin d'une information spécifique ? Faites une demande à l'un de nos experts. Il vous répondra dans les plus brefs délais</p>
+    <a href="demande.php"><button type="button" class="btn btn-primary" name="button">Nouvelle Demande</button></a>
+    <a href="#" class="bg-primary"></a>
+  </div>
+
+  <div class="planning">
+    <h3>Planning des permanences : </h3>
+    <p class="alert alert-warning">
+      Votre demande est urgente ?
+      Contactez par téléphone l'un de nos experts en permanence.
+    </p>
+
+    <table class="planning table table-bordered">
+      <tr>
+        <td><b>Disponibilité</b></td>
+        <td>Lundi</td>
+        <td>Mardi</td>
+        <td>Mercredi</td>
+        <td>Jeudi</td>
+        <td>Vendredi</td>
+      </tr>
+
+      <tr>
+        <td>Matin (9h-12h)</td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Après-midi (14h-17h)</td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Patrick Durand</li>
+            <li>Jean Dupont</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

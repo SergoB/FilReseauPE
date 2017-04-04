@@ -1,0 +1,52 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block body %}
+  <section class="container">
+    <h2>Mes demandes en cours de traitement</h2>
+      <p class="alert alert-warning">
+        Les demandes suivantes sont en cours de traitement. Vous pouvez consulter les réponses qui vous ont été proposées et y répondre si vous souhaitez un complément d'information.
+      </p>
+      <table class="table table-bordered">
+        <tr class="bg-primary">
+          <td>N°</td>
+          <td>Objet de la demande</td>
+          <td>Etat</td>
+          <td>Date</td>
+          <td>Réponse(s)</td>
+        </tr>
+
+
+        <tr>
+          <td>1</td>
+          <td>Annulation AFPR</td>
+          <td>En cours de traitement</td>
+          <td>11/03/2017</td>
+          <td><a href="#">1</a></td>
+        </tr>
+      </table>
+    <h2>Mes demandes traitées</h2>
+    <p class="alert alert-success">
+      Les demandes suivantes ont été traitées et validées. Vous pouvez les consulter à tout moment.
+    </p>
+    <table class="table table-bordered">
+      <tr class="bg-success">
+        <td>N°</td>
+        <td>Objet de la demande</td>
+        <td>Etat</td>
+        <td>Date</td>
+        <td>Réponse(s)</td>
+      </tr>
+
+
+      <tr>
+        <td>1</td>
+        <td>Paiement AFPR</td>
+        <td>Traitée</td>
+        <td>12/03/2016</td>
+        <td><a href="#">4</a></td>
+      </tr>
+    </table>
+  </section>
+{% endblock %}
