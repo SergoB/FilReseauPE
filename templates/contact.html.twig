@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+<h3>Contacter l'administrateur</h3>
+<p class="alert alert-info">Vous avez une question à propos de l'outil Fil Réseau ? Vous rencontrez un problème lors de son utilisation ?  Contactez l'un de nos administrateurs.</p>
+
+<form class="form" action="index.php" method="post">
+
+  <div class="input-group col-xs-8">
+    <label>Adresse mail :</label>
+    <input type="text" class="form-control" name="mail" placeholder="Saisissez votre adresse mail">
+  </div>
+
+  <div class="input-group col-xs-8">
+    <label>Objet :</label>
+    <input class="form-control "type="text" name="obj" placeholder="Indiquez l'objet de votre demande">
+  </div>
+
+  <div class="input-group col-xs-8">
+    <label>Message :</label>
+    <textarea class="form-control" name="name" rows="3" placeholder="Décrivez votre demande le plus précisément possible. (500 caractères maximum)"></textarea>
+  </div>
+
+  <br>
+
+  <input type="submit" class="btn btn-primary" value="Envoyer">
+</form>
+{% endblock %}

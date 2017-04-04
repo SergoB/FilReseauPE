@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block navbar %}
+<div class="row container-fluid navbar">
+    <a class="col-lg-2 home" href="expertHome.php"><h3>Fil Réseau</h3></a>
+    <div class="col-lg-7">
+      <ul class="nav nav-pills">
+        <li role="presentation" class="navElement"><a href="expertHome.php">Demandes en attente de résolution</a></li>
+        <li role="presentation" class="navElement"><a href="expertBibliotheque.php">Bibliothèque</a></li>
+        <li role="presentation" class="navElement"><a href="contact.php">Contactez-nous</a></li>
+      </ul>
+    </div>
+
+    <div class="col-lg-3 blocUser">
+      <p>Bienvenue Expert - <a href="index.php">Déconnexion</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+  <div class="intro">
+    <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
+    <p>Consultez la liste des demandes en cours, traitez celles que vous souhaitez et sauvegardez dans la bibliothèque les réponses les plus "utiles"</p>
+  </div>
+
+  <div>
+    <h3>Liste des demandes en attente de traitement</h3>
+    <table class="table table-bordered">
+      <tr class="bg-primary">
+        <td>N°</td>
+        <td>Auteur </td>
+        <td>Objet de la demande</td>
+        <td>Thème</td>
+        <td>Date</td>
+        <td>Action</td>
+      </tr>
+
+      <tr>
+        <td>1</td>
+        <td>Michel DURAND</td>
+        <td>Annulation AFPR</td>
+        <td>Formation</td>
+        <td>04/04/2017</td>
+        <td><a href="expertDemande.php"><button type="button" class="btn btn-success">Consulter</button></a></td>
+      </tr>
+
+
+
+    </table>
+  </div>
+
+
+{% endblock %}

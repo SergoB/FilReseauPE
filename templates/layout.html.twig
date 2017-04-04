@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="templates/css/bootstrap.css">
-    <link rel="stylesheet" href="templates/css/style.css">
+    <link rel="stylesheet" href="../templates/css/bootstrap.css">
+    <link rel="stylesheet" href="../templates/css/style.css">
 
     <title>Fil Réseau : Votre outil de gestion des demandes</title>
   </head>
@@ -11,19 +11,29 @@
 
   <body>
       {% block navbar %}
-          <ul class="container-fluid navbar nav nav-pills">
+          <div class="row container-fluid navbar">
               <a class="col-lg-2 home" href="index.php"><h3>Fil Réseau</h3></a>
-              <li role="presentation" class="navElement"><a href="demande.php">Nouvelle demande</a></li>
-              <li role="presentation" class="navElement"><a href="suiviDemandes.php">Mes demandes</a></li>
-              <li role="presentation" class="navElement"><a href="bibliotheque.php">Bibliothèque</a></li>
-              <li role="presentation" class="navElement"><a href="#">Contactez-nous</a></li>
-              <p class="blocUser">Bienvenue Manager - <a href="#">Déconnexion</a></p>
-          </ul>
-      {% endblock %}
+              <div class="col-lg-7">
+                <ul class="nav nav-pills">
+                  <li role="presentation" class="navElement"><a href="managerBibliotheque.php">Bibliothèque</a></li>
+                  <li role="presentation" class="navElement"><a href="contact.php">Contactez-nous</a></li>
+                </ul>
+              </div>
 
-      {% block body %}
-
+              <div class="col-lg-3 blocUser">
+                <p><a href="index.php">Inscription</a></p>
+              </div>
+          </div>
       {% endblock %}
+      <section class="container">
+        {% block body %}
+          <h2>Bienvenue sur Fil Réseau : Votre platforme de gestion des demandes.</h2>
+          <a href="managerHome.php">Espace Manager</a> <br>
+          <a href="expertHome.php">Espace Expert</a><br>
+          <a href="#">Espace Admin</a>
+        {% endblock %}
+      </section>
+
   </body>
 
 

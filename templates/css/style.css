@@ -2,6 +2,7 @@
   font-size: 18px;
   background-color: #337ab7;
   color: white;
+  h
 }
 
 .navbar a{
@@ -10,12 +11,12 @@
 }
 
 .navElement{
-  padding-top: 3px;
+  margin-top: 1%;
 }
 
 .blocUser{
-  padding-top: 1%;
   float: right;
+  margin-top:1%;
 }
 .blocUser a:hover, .home:hover{
   color:oldlace;
@@ -24,9 +25,13 @@
 .navElement a:hover{
   color:black;
 }
+.corpsDemande{
+  border: solid;
+  padding: 1%;
+}
 
-.demande:hover{
-  background-color: green;
+.demande{
+  padding: 1%;
 }
 
 .intro{
