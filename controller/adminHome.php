@@ -6,7 +6,7 @@ require_once("../model/dbconnect.php");
 $connexion = dbconnect();
 
 
-$template = $twig -> loadTemplate ('expert/expertBibliotheque.html.twig');
+$template = $twig -> loadTemplate ('admin/adminHome.html.twig');
 echo $template -> render(
   array(
 

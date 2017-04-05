@@ -6,7 +6,7 @@ require_once("../model/dbconnect.php");
 $connexion = dbconnect();
 
 
-$template = $twig -> loadTemplate ('manager/managerBibliotheque.html.twig');
+$template = $twig -> loadTemplate ('admin/adminGestion.html.twig');
 echo $template -> render(
   array(
 

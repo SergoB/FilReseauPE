@@ -1,0 +1,40 @@
+{% extends 'admin/adminHome.html.twig' %}
+
+
+
+{% block body %}
+  <ul class="nav nav-pills">
+    <li><a href="#">Gestion des Thèmes</a></li>
+    <li><a href="#">Gestion des Sous thèmes</a></li>
+    <li><a href="#">Gestion des Managers</a></li>
+    <li><a href="#">Gestion des Experts</a></li>
+    <li><a href="#">Gestion des Sites</a></li>
+    <li><a href="#">Gestion des Unités</a></li>
+  </ul>
+
+  <div class="blocGestion">
+    <form class="form-inline" action="index.html" method="post">
+        <label for="">Ajouter un nouveau thème : </label>
+        <input class="form-control" type="text" name="intitule" placeholder="Saisissez l'intitulé du thème à ajouter">
+        <input type="submit" class="btn btn-success"  value="Ajouter">
+
+    </form>
+
+    <h3>Liste des thèmes : </h3>
+    <table class="table table-bordered">
+      <tr>
+        <td><h4>Intitulé du thème</h4></td>
+        <td><h4>Actions</h4></td>
+      </tr>
+
+      <tr>
+        <td>Accords</td>
+        <td>
+          <button class="btn btn-primary" type="button" name="edit">Modifier</button>
+          <button class="btn btn-danger" type="button" name="delete">Supprimer</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+{% endblock %}

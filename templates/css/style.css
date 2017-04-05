@@ -25,15 +25,40 @@
 .navElement a:hover{
   color:black;
 }
-.corpsDemande{
-  border: solid;
-  padding: 1%;
+
+
+.headerDemande{
+  margin-top : 2%;
+  margin-bottom: 2%;
+  padding-top: 1%;
 }
 
 .demande{
   padding: 1%;
 }
 
+
+.demande h4{
+  color: grey;
+}
+
+.corpsDemande {
+  margin-top:2%;
+  box-shadow: 2px 2px 10px #888888;
+}
+
+
 .intro{
   margin-bottom:2%;
+}
+
+/*Espace Admin*/
+
+.blocGestion{
+  margin-top: 3%;
+}
+
+
+button{
+  margin:1%;
 }

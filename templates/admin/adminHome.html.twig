@@ -1,0 +1,140 @@
+{% extends 'layout.html.twig' %}
+
+{% block navbar %}
+<div class="row container-fluid navbar">
+    <a class="col-lg-2 home" href="adminHome.php"><h3>Fil Réseau</h3></a>
+    <div class="col-lg-7">
+      <ul class="nav nav-pills">
+        <li role="presentation" class="navElement"><a href="adminHome.php">Planning des permanences</a></li>
+        <li role="presentation" class="navElement"><a href="adminGestion.php">Gestion des tables</a></li>
+        <li role="presentation" class="navElement"><a href="contact.php">Statistiques</a></li>
+      </ul>
+    </div>
+
+    <div class="col-lg-3 blocUser">
+      <p>Bienvenue Admin - <a href="index.php">Déconnexion</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+  <div class="intro">
+    <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
+    <p>Mettez à jour le planning des permanences chaque semaine, ajoutez, modifiez ou supprimez les champs des différentes tables, consultez et exportez les statistiques de l'outil...</p>
+  </div>
+
+  <h3>Gestion du planning : Semaine 14 (du 03 avr au 7 avr)</h3>
+  <table class="planning table table-bordered">
+    <tr>
+      <td><b>Disponibilité</b></td>
+      <td>Lundi</td>
+      <td>Mardi</td>
+      <td>Mercredi</td>
+      <td>Jeudi</td>
+      <td>Vendredi</td>
+    </tr>
+
+    <tr>
+      <td>Matin (9h-12h)</td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Après-midi (14h-17h)</td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Patrick Durand</li>
+          <li>Jean Dupont</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <h4>Ajouter une permanence : </h4>
+  <form class="form-inline" action="adminHome.php" method="post">
+
+    <div class="input-group">
+      <label for="">Date : </label>
+      <input class="form-control" type="date" name="datePerm">
+    </div>
+
+    <div class="input-group">
+      <label for=""> Expert : </label>
+      <select class="form-control" name="dispo">
+        <option value="">Paul DURAND</option>
+        <option value="">Celine MARCHAND</option>
+        <option value="">Henry MARTIN</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label for=""> Disponibilité : </label>
+      <select class="form-control" name="dispo">
+        <option value="">Matin</option>
+        <option value="">Après-midi</option>
+        <option value="">Journée</option>
+      </select>
+    </div>
+    <br> <br>
+    <div class="input-group">
+      <input type="submit" class="btn btn-success" name="" value="Enregistrer">
+    </div>
+
+
+
+  </form>
+{% endblock %}
