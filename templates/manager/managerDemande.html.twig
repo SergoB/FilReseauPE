@@ -4,7 +4,12 @@
 {% block body %}
 <div class="container">
   <h1>Créer une nouvelle demande</h1>
-  <form action="index.php" class="form" method="post">
+  <form action="managerHome.php" class="form" method="post">
+
+
+    <!-- Infos demandeur -->
+    <h3>Informations sur la demande :</h3>
+
     <div class="input-group col-xs-8">
       <label>Type de personne concerné :</label>
       <select class=form-control>
@@ -13,33 +18,32 @@
       </select>
     </div>
 
-    <!-- Infos demandeur -->
-    <h3>Informations sur le demandeur :</h3>
     <div class="input-group col-xs-8">
-      <label>Nom :</label>
-      <input type="text" class="form-control" placeholder="Nom du demandeur">
-    </div>
-
-    <div class="input-group col-xs-8">
-      <label>Prénom :</label>
-      <input type="text" class="form-control" placeholder="Prénom du demandeur">
-    </div>
-
-    <div class="input-group col-xs-8">
-      <label>Identifiant :</label>
+      <label>Identifiant (SIREN/SIRET ou numéro de demandeur d'emploi) :</label>
       <input type="text" class="form-control" placeholder="Identifiant du demandeur">
     </div>
+
+    <div class="input-group col-xs-8">
+      <label>Thème de la demande :</label>
+      <select class=form-control>
+        <option value="dde">Formation</option>
+        <option value="etp">pole-emploi.fr</option>
+      </select>
+    </div>
+
+
     <!-- ------------------------------------------------ -->
 
     <h3>Votre demande : </h3>
-    <div class="input-group col-xs-8">
-      <label>Objet :</label>
-      <input type="text" class="form-control" placeholder="Objet de la demande">
-    </div>
 
     <div class="input-group col-xs-8">
       <label>Description :</label>
       <textarea class="form-control" name="name" rows="3" placeholder="Décrivez votre demande le plus précisément possible. (500 caractères maximum)"></textarea>
+    </div>
+
+    <div class="input-group col-xs-8">
+      <label>Ajouter une pièce jointe :</label>
+      <input type="file">
     </div>
 
     <br>

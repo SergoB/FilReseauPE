@@ -7,8 +7,8 @@
       <ul class="nav nav-pills">
         <li role="presentation" class="navElement"><a href="managerDemande.php">Nouvelle demande</a></li>
         <li role="presentation" class="navElement"><a href="managerSuivi.php">Mes demandes</a></li>
-        <li role="presentation" class="navElement"><a href="bibliotheque.php">Bibliothèque</a></li>
-        <li role="presentation" class="navElement"><a href="contact.php">Contactez-nous</a></li>
+        <li role="presentation" class="navElement"><a href="bibliotheque.php">Archives</a></li>
+        <li role="presentation" class="navElement"><a href="managerHome.php">Planning des permanences</a></li>
       </ul>
     </div>
 
@@ -20,12 +20,13 @@
 
 {% block body %}
 <section class="container">
-  <div class="intro">
-    <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
-    <p>Vous avez besoin d'une information spécifique ? Faites une demande à l'un de nos experts. Il vous répondra dans les plus brefs délais</p>
-    <a href="managerDemande.php"><button type="button" class="btn btn-primary" name="button">Nouvelle Demande</button></a>
-    <a href="#" class="bg-primary"></a>
+  <h3>Fil d'actualité : </h3>
+  <div class="actualite">
+    <a href="#"><p>Post it (1) Question / réponse type</p></a>
+    <a href="#"><p>Post it (2) Question / réponse type</p></a>
+    <a href="#"><p>Post it (3) Question / réponse type</p></a>
   </div>
+  <p>Votre demande n'apparait pas dans le fil d'actualité ? Faites appel à l'un de nos experts. <a href="managerDemande.php"><button type="button" class="btn btn-primary" name="button">Nouvelle Demande</button></a>
 
   <div class="planning">
     <h3>Planning des permanences : </h3>

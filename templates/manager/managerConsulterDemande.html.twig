@@ -1,0 +1,49 @@
+{% extends 'manager/managerHome.html.twig' %}
+
+
+
+{% block body %}
+<section class="demande">
+  <div class="row">
+    <div class="col-lg-6">
+      <h3>Demande n°1</h3>
+    </div>
+
+    <div class="col-lg-3">
+      <button type="button" class="btn btn-warning" name="button">Clore la demande</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row headerDemande bg-info">
+    <p class="col-lg-6"><b>Auteur de la demande : </b> Pascal DUPUY</p>
+    <p class="col-lg-6"><b>Agence :</b>  Ingré(45)</p>
+    <p class="col-lg-6"><b>Adresse mail : </b> pascal.dupuy@pole-emploi.fr</p>
+    <p class="col-lg-6"><b>Téléphone : </b> 0721201212</p>
+    <p class="col-lg-6"> <b>Thème : </b> Formation </p>
+    <p class="col-lg-6"> <b>Sous-thème : </b> Financement des formations</p>
+  </div>
+
+  <h4><b>Objet : Financement des formations</b></h4>
+
+  <div class="corpsDemande row bg-success">
+    <p class="col-lg-12"><i>Pascal DUPUY le 04/04/2017 à 16h38</i></p>
+    <p class="col-lg-12"><b>Description : </b> <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+
+  <div class="corpsDemande row bg-warning">
+    <p class="col-lg-12"><i>Réponse apportée par Michel DURAND le 04/04/2017 à 16h38</i></p>
+    <p class="col-lg-12"><b>Description : </b> <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+
+  <h4>Répondre : </h4>
+  <form class="form row" action="index.html" method="post">
+    <div class="input-group col-lg-6">
+      <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)"></textarea>
+      <br>
+      <input type="submit" class="btn btn-success" value="Envoyer">
+    </div>
+  </form>
+</section>
+{% endblock %}

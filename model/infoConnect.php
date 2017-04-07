@@ -1,5 +1,5 @@
 <?php
 define('SERVER','localhost');
-define('DB','td_film');
+define('DB','FilReseau');
 define('USER','root');
 define('PSWD','root');
