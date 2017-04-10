@@ -1,9 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block navbar %}
-<div class="row container-fluid navbar">
-    <a class="col-md-2 col-xs-3 home" href="managerHome.php"><h3>Fil Réseau</h3></a>
-    <div class="col-md-7 col-xs-5">
+    <a class="col-xs-4 col-lg-2 home" href="managerHome.php"><h3>Fil Réseau</h3></a>
+    <div class="col-xs-5 col-lg-8">
       <ul class="nav nav-pills">
         <li role="presentation" class="navElement"><a href="managerDemande.php">Nouvelle demande</a></li>
         <li role="presentation" class="navElement"><a href="managerSuivi.php">Mes demandes</a></li>
@@ -11,21 +10,11 @@
         <li role="presentation" class="navElement"><a href="managerHome.php">Planning des permanences</a></li>
       </ul>
     </div>
-
-    <div class="col-md-3 col-xs-4 blocUser">
-      <p>Bienvenue Manager - <a href="index.php">Déconnexion</a></p>
-    </div>
-</div>
 {% endblock %}
 
 {% block body %}
 <section class="container">
-  <h3>Fil d'actualité : </h3>
-  <div class="actualite">
-    <a href="#"><p>Post it (1) Question / réponse type</p></a>
-    <a href="#"><p>Post it (2) Question / réponse type</p></a>
-    <a href="#"><p>Post it (3) Question / réponse type</p></a>
-  </div>
+
   <p>Votre demande n'apparait pas dans le fil d'actualité ? Faites appel à l'un de nos experts. <a href="managerDemande.php"><button type="button" class="btn btn-primary" name="button">Nouvelle Demande</button></a>
 
   <div class="planning">

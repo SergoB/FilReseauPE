@@ -1,0 +1,43 @@
+<div class="blocGestion">
+  <form class="form-inline" action="adminGestion.php?table=agence" method="post">
+      <label for="">Ajouter une agence : </label>
+      <input class="form-control" type="text" name="libelleAgence" placeholder="Nom de l'agence">
+      <label for="">Département : </label>
+      <input class="form-control" type="text" name="departementAgence" placeholder="ex : 45">
+      <input type="submit" class="btn btn-success" name="ajoutAgence" value="Ajouter">
+      {% if POST.libelleAgence is not null %}
+        {{confirmAjoutAgence}}
+      {% endif %}
+
+      {% if GET.id_agence is not null %}
+        {{confirmSuprAgence}}
+      {% endif %}
+  </form>
+
+  <h3>Liste des agences : </h3>
+
+    {% if agences is empty %}
+      <h4>Aucune agence n'a encore été ajouté.</h4>
+    {% else %}
+
+    <table class="table table-bordered">
+      <tr>
+        <td><h4>Nom de l'agence</h4></td>
+        <td><h4>Departement</h4></td>
+        <td><h4>Actions</h4></td>
+      </tr>
+
+      {% for agence in agences %}
+      <tr>
+        <td>{{agence.libelle}}</td>
+        <td>{{agence.departement}}</td>
+        <td>
+          <a href="adminGestion.php?id_agence={{agence.id}}&amp;table=agence"><button class="btn btn-danger" type="button" name="delete">Supprimer</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </table>
+    {% endif %}
+
+</div>

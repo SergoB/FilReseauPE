@@ -5,9 +5,10 @@ require_once("../model/instancierTwig.php");
 require_once("../model/dbconnect.php");
 $connexion = dbconnect();
 
+//Regroupe l'ensemble des méthodes permettant la gestion des tables de la bdd
+require_once("../model/userModel.php");
+$userModel = new userModel($connexion);
 
-$template = $twig -> loadTemplate ('layout.html.twig');
-echo $template -> render(
-  array(
+session_start();
 
-  ));
+require_once('connexion.php');

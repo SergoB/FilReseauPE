@@ -1,0 +1,59 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+<h2>Inscription nouvel utilisateur : </h2>
+
+<p>{{confirmInscription}}</p>
+
+<form class="form" action="inscription.php" method="post">
+
+  <div class="input-group col-xs-8">
+    <label for="">Adresse mail : </label>
+    <input class="form-control" type="email" name="email" placeholder="prenom.nom@pole-emploi.fr" required="true">
+    {% if erreurMail is not null %}
+    <p class="alert alert-danger">{{erreurMail}}</p>
+    {% endif %}
+  </div>
+
+  <div class="input-group col-xs-8">
+    <label for="">Nom : </label>
+    <input class="form-control" type="text" name="nom" placeholder="Saisissez votre nom en majuscule" required="true">
+  </div>
+
+  <div class="input-group col-xs-8">
+    <label for="">Prénom : </label>
+    <input class="form-control" type="text" name="prenom" placeholder="Saisissez votre prénom" required="true">
+  </div>
+
+  <div class="input-group col-xs-8">
+    <label for="">Mot de passe : </label>
+    <input class="form-control" type="password" name="mdp" placeholder="Saisissez votre mot de passe" required="true">
+  </div>
+
+  <div class="input-group col-xs-8">
+    <label for="">Confirmation Mot de passe : </label>
+    <input class="form-control" type="password" name="mdpConfirm" placeholder="Saisissez votre mot de passe" required="true">
+    {% if erreurMdp is not null %}
+    <p class="alert alert-danger">{{erreurMdp}}</p>
+    {% endif %}
+  </div>
+
+  <div class="input-group col-xs-8">
+    <label for="">Agence : </label>
+    <select class="form-control" name="agence">
+      {% for agence in agences %}
+        <option value="{{agence.id}}">{{agence.libelle}} ({{agence.departement}})</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="input-group col-xs-8">
+    <br>
+    <input type="submit" class="btn btn-primary" name="validerInscription" value="Valider">
+  </div>
+
+
+</form>
+
+{% endblock %}

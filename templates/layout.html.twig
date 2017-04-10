@@ -1,40 +1,66 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../templates/css/bootstrap.css">
-    <link rel="stylesheet" href="../templates/css/style.css">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../templates/css/bootstrap.css">
+  <link rel="stylesheet" href="../templates/css/style.css">
 
-    <title>Fil Réseau : Votre outil de gestion des demandes</title>
-  </head>
+  <title>Fil Réseau : Votre outil de gestion des demandes</title>
+</head>
 
 
-  <body>
-      {% block navbar %}
-          <div class="row container-fluid navbar">
-              <a class="col-xs-4 home" href="index.php"><h3>Fil Réseau</h3></a>
-              <div class="col-xs-5">
-                <ul class="nav nav-pills">
-                  <li role="presentation" class="navElement"><a href="bibliotheque.php">Consulter les archives</a></li>
-                  <li role="presentation" class="navElement"><a href="contact.php">Contactez-nous</a></li>
-                </ul>
-              </div>
+<body>
+  <div class="row container-fluid navbar">
+    {% block navbar %}
+    <a class="col-xs-4 col-lg-2 home" href="index.php"><h3>Fil Réseau</h3></a>
+    <div class="col-xs-4  col-lg-4">
+      <ul class="nav nav-pills">
+        <li role="presentation" class="navElement"><a href="bibliotheque.php">Consulter les archives</a></li>
+        <li role="presentation" class="navElement"><a href="contact.php">Contactez-nous</a></li>
+      </ul>
+    </div>
+    {% endblock %}
 
-              <div class="col-xs-2 blocUser">
-                <p><a href="index.php">Inscription</a></p>
-              </div>
-          </div>
-      {% endblock %}
-      <section class="container">
-        {% block body %}
-          <h2>Bienvenue sur Fil Réseau : Votre platforme de gestion des demandes.</h2>
-          <a href="managerHome.php">Espace Manager</a> <br>
-          <a href="expertHome.php">Espace Expert</a><br>
-          <a href="adminHome.php">Espace Admin</a>
-        {% endblock %}
-      </section>
+    <div class="col-xs-3 col-lg-2 blocUser">
+      {% if SESSION.user is null %}
+      {% include 'connexion.html.twig' %}
+        {% if erreurConnect is not null %}
+        <p>{{erreurConnect}}</p>
+        {% endif %}
+      {% else %}
+      <p>Bienvenue {{SESSION.user.prenom}}</p>
+      <a href="deconnexion.php">Deconnexion</a>
+      {% endif %}
+    </div>
+  </div>
 
-  </body>
+  <section class="container">
+    {% block body %}
+    {% for utilisateur in utilisateurs %}
+    <p>{{utilisateur.nom}}</p>
+    {% endfor %}
+    {% if confirmInscription is not null %}
+    <p class="alert alert-success">{{confirmInscription}}</p>
+    {% endif %}
+    <h2>Bienvenue sur Fil Réseau : Votre platforme de gestion des demandes.</h2>
+
+    <h3>Fil d'actualité : </h3>
+    <p class="alert alert-info">Les questions et réponses suivantes ont été jugées utiles.
+      Si la réponse à votre demande n'y apparait pas, vous pouvez formuler une nouvelle demande en vous connectant à la platforme en tant que Manager.
+    </p>
+    <div class="actualite">
+      <a href="#"><p>Post it (1) Question / réponse type</p></a>
+      <a href="#"><p>Post it (2) Question / réponse type</p></a>
+      <a href="#"><p>Post it (3) Question / réponse type</p></a>
+    </div>
+    <h3>Accès rapide aux différents espaces (pour la phase de test)</h3>
+    <a href="managerHome.php">Espace Manager</a> <br>
+    <a href="expertHome.php">Espace Expert</a><br>
+    <a href="adminHome.php">Espace Admin</a>
+    {% endblock %}
+  </section>
+
+</body>
 
 
 

@@ -4,52 +4,23 @@
 
 {% block body %}
   <ul class="nav nav-pills">
-    <li><a href="#">Gestion des Thèmes</a></li>
-    <li><a href="#">Gestion des Sous thèmes</a></li>
-    <li><a href="#">Gestion des Managers</a></li>
-    <li><a href="#">Gestion des Experts</a></li>
-    <li><a href="#">Gestion des Sites</a></li>
-    <li><a href="#">Gestion des Unités</a></li>
+    <li><a href="adminGestion.php?table=theme">Gestion des Thèmes</a></li>
+    <li><a href="adminGestion.php?table=manager">Gestion des Managers</a></li>
+    <li><a href="adminGestion.php?table=expert">Gestion des Experts</a></li>
+    <li><a href="adminGestion.php?table=agence">Gestion des Agences</a></li>
   </ul>
 
-  <div class="blocGestion">
-    <form class="form-inline" action="adminGestion.php" method="post">
-        <label for="">Ajouter un nouveau thème : </label>
-        <input class="form-control" type="text" name="libelleTheme" placeholder="Saisissez l'intitulé du thème à ajouter">
-        <input type="submit" class="btn btn-success"  value="Ajouter">
-        {% if POST.libelleTheme is not null %}
-          {{confirmAjoutTheme}}
-        {% endif %}
+  {% if GET.table =='theme' %}
+  {% include 'admin/gestionTables/gestionThemes.html.twig' %}
+  {% elseif GET.table =='manager' %}
+  {% include 'admin/gestionTables/gestionManagers.html.twig' %}
+  {% elseif GET.table =='expert' %}
+  <p>Les experts</p>
+  {% elseif GET.table =='agence' %}
+  {% include 'admin/gestionTables/gestionAgences.html.twig' %}
+  {% else %}
+  {% include 'admin/gestionTables/gestionThemes.html.twig' %}
+  {% endif %}
 
-        {% if GET.id_theme is not null %}
-          {{confirmSuprTheme}}
-        {% endif %}
-    </form>
-
-    <h3>Liste des thèmes : </h3>
-
-
-      {% if themes is empty %}
-        <h4>Aucun thème n'a encore été ajouté.</h4>
-      {% else %}
-      <table class="table table-bordered">
-        <tr>
-          <td><h4>Intitulé du thème</h4></td>
-          <td><h4>Actions</h4></td>
-        </tr>
-
-        {% for theme in themes %}
-        <tr>
-          <td>{{theme.libelle}}</td>
-          <td>
-            <a href="adminGestion.php?id_theme={{theme.id}}"><button class="btn btn-danger" type="button" name="delete">Supprimer</button></a>
-          </td>
-        </tr>
-        {% endfor %}
-        
-      </table>
-      {% endif %}
-
-  </div>
 
 {% endblock %}
