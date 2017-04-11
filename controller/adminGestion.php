@@ -46,16 +46,16 @@ require_once('../model/userModel.php');
 $userModel = new userModel($connexion);
 
   //Traitement de la requête d'ajout d'un nouveau thème
-  if (!empty($_POST['manager_id'])) {
-    $confirmAjoutManager=$userModel->set_role($_POST['manager_id'],'Manager');
+  if (!empty($_POST['id_manager'])) {
+    $confirmAjoutManager=$userModel->set_role($_POST['id_manager'],'Manager');
   }
   else {
     $confirmAjoutManager=""; //On n'affiche le message de confirmation que si un thème est ajouté.
   }
 
   //Traitement de la requête de suppression d'un thème
-  if (!empty($_GET['manager_id'])) {
-    $confirmSuprManager=$userModel->remove_role($_GET['manager_id']);
+  if (!empty($_GET['id_manager'])) {
+    $confirmSuprManager=$userModel->remove_role($_GET['id_manager']);
   }
   else {
     $confirmSuprManager="";
@@ -63,6 +63,30 @@ $userModel = new userModel($connexion);
 
 //--------------------------------------------------------------------
 //------------------FIN GESTION MANAGERS------------------------------
+//--------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------
+// ------------------GESTION DES EXPERTS---------------------------------
+//------------------------------------------------------------------------
+  //Traitement de la requête d'ajout d'un expert
+  if (!empty($_POST['id_expert'])) {
+    $confirmAjoutExpert=$userModel->set_role($_POST['id_expert'],'Expert');
+  }
+  else {
+    $confirmAjoutExpert="";
+  }
+
+  //Traitement de la requête de suppression d'un expert
+  if (!empty($_GET['id_expert'])) {
+    $confirmSuprExpert=$userModel->remove_role($_GET['id_expert']);
+  }
+  else {
+    $confirmSuprExpert="";
+  }
+
+//--------------------------------------------------------------------
+//------------------FIN GESTION EXPERTS------------------------------
 //--------------------------------------------------------------------
 
 
@@ -106,8 +130,11 @@ echo $template -> render(
     'confirmSuprAgence'=> $confirmSuprAgence,
     'confirmAjoutManager'=> $confirmAjoutManager,
     'confirmSuprManager'=> $confirmSuprManager,
+    'confirmAjoutExpert'=> $confirmAjoutExpert,
+    'confirmSuprExpert'=> $confirmSuprExpert,
     'themes'=> $themeModel->get_themes(),
     'agences'=> $agenceModel->get_agences(),
     'managers'=> $userModel-> get_users_byRole('Manager'),
+    'experts'=> $userModel-> get_users_byRole('Expert'),
     'users' => $userModel-> get_users(),
   ));

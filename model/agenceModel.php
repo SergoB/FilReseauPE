@@ -17,16 +17,16 @@ class agenceModel
 // --------------------------------------------------------------------------
 // -----------------METHODES DE GESTION DES THEMES---------------------------
 // --------------------------------------------------------------------------
-  function add_agence($libelle, $departement)
+  function add_agence($nom, $departement)
   {
 
     $requete = $this->db->prepare
     ('
-      INSERT INTO agence(libelle,departement)
+      INSERT INTO agence(nom,departement)
       VALUES (?,?)
     ');
 
-    $requete->execute(array($libelle, $departement));
+    $requete->execute(array($nom, $departement));
     $requete->closeCursor();
 
     return "L'agence a bien été ajouté";

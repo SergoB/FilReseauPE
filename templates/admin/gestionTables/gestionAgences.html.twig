@@ -29,7 +29,7 @@
 
       {% for agence in agences %}
       <tr>
-        <td>{{agence.libelle}}</td>
+        <td>{{agence.nom}}</td>
         <td>{{agence.departement}}</td>
         <td>
           <a href="adminGestion.php?id_agence={{agence.id}}&amp;table=agence"><button class="btn btn-danger" type="button" name="delete">Supprimer</button></a>

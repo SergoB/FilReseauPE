@@ -1,34 +1,45 @@
 <div class="blocGestion">
-  <form class="form-inline" action="adminGestion.php" method="post">
-      <label for="">Ajouter un nouveau thème : </label>
-      <input class="form-control" type="text" name="libelleTheme" placeholder="Saisissez l'intitulé du thème à ajouter">
+  <form class="form-inline" action="adminGestion.php?table=expert" method="post">
+      <label for="">Ajouter un expert: </label>
+      <select class="form-control" name="id_expert">
+        {% for user in users %}
+          <!-- On affiche que les utilisateurs qui ne sont pas déjà experts -->
+          {% if user.role != 2 %}
+            <option value='{{user.id}}'>{{user.prenom}} {{user.nom}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+
       <input type="submit" class="btn btn-success"  value="Ajouter">
-      {% if POST.libelleTheme is not null %}
-        {{confirmAjoutTheme}}
+
+      {% if POST.id_expert is not null %}
+        {{confirmAjoutExpert}}
       {% endif %}
 
-      {% if GET.id_theme is not null %}
-        {{confirmSuprTheme}}
+      {% if GET.id_expert is not null %}
+        {{confirmSuprExpert}}
       {% endif %}
   </form>
 
-  <h3>Liste des thèmes : </h3>
+  <h3>Liste des Experts : </h3>
 
-    {% if themes is empty %}
-      <h4>Aucun thème n'a encore été ajouté.</h4>
+    {% if experts is empty %}
+      <h4>Aucun expert n'a encore été ajouté.</h4>
     {% else %}
 
     <table class="table table-bordered">
       <tr>
-        <td><h4>Intitulé du thème</h4></td>
+        <td><h4>N° Utilisateur</h4></td>
+        <td><h4>Nom et prénom</h4></td>
         <td><h4>Actions</h4></td>
       </tr>
 
-      {% for theme in themes %}
+      {% for expert in experts %}
       <tr>
-        <td>{{theme.libelle}}</td>
+        <td>{{expert.id}}</td>
+        <td>{{expert.nom}} {{expert.prenom}}</td>
         <td>
-          <a href="adminGestion.php?id_theme={{theme.id}}"><button class="btn btn-danger" type="button" name="delete">Supprimer</button></a>
+          <a href="adminGestion.php?id_expert={{expert.id}}&amp;table=expert"><button class="btn btn-danger" type="button" name="delete">Supprimer</button></a>
         </td>
       </tr>
       {% endfor %}

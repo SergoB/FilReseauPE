@@ -128,9 +128,10 @@ class userModel
     {
       $users = $this->db->prepare
       ('
-      SELECT utilisateur.id, nom, prenom, agence, email
+      SELECT utilisateur.id, utilisateur.nom, prenom, email, agence.nom as nomAgence, departement as departementAgence
       FROM utilisateur
-      JOIN role_user ON utilisateur.role = role_user.id
+      LEFT JOIN role_user ON utilisateur.role = role_user.id
+      LEFT JOIN agence ON utilisateur.id_agence = agence.id
       WHERE role_user.libelle = :role
       ');
 
@@ -161,7 +162,7 @@ class userModel
           'user_id'=>$user_id
         ));
 
-      return "L'utilisateur ".$user_id." est maintenant Manager.";
+      return "L'utilisateur n°".$user_id." est maintenant ".$role;
     }
 
     function remove_role($user_id)
@@ -169,17 +170,18 @@ class userModel
       $requete = $this->db->prepare
       ("
       UPDATE utilisateur
-      SET utilisateur.role=null
-      WHERE utilisateur.id=:user_id
+      SET utilisateur.role=NULL
+      WHERE utilisateur.id=:id
       ");
 
       $requete->execute(
         array(
-          'user_id'=>$user_id
+          'id'=>$user_id
         ));
 
-      return "L'utilisateur ".$user_id." n'est plus manager";
+      return "Le role de l'utilisateur n°".$user_id. " a été supprimé avec succès." ;
     }
+
 
     // --------------------------------------------------------------------------
     // -----------------FIN DES METHODES DE GESTION DES UTILISATEURS-------------

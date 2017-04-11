@@ -38,32 +38,45 @@
         <td>Matin (9h-12h)</td>
         <td>
           <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </td>
         <td>
           <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          {% for expert in expertsAvecPermanences %}
+            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+              <li>{{expert.prenom}} {{expert.nom}}</li>
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td>
+          <ul>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </td>
         <td>
           <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </td>
       </tr>
@@ -72,32 +85,45 @@
         <td>Après-midi (14h-17h)</td>
         <td>
           <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </td>
         <td>
           <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          {% for expert in expertsAvecPermanences %}
+            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+              <li>{{expert.prenom}} {{expert.nom}}</li>
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td>
+          <ul>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </td>
         <td>
           <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Patrick Durand</li>
-            <li>Jean Dupont</li>
+            {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+                <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+            {% endfor %}
           </ul>
         </td>
       </tr>

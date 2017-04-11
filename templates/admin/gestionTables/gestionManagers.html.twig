@@ -1,26 +1,29 @@
 <div class="blocGestion">
   <form class="form-inline" action="adminGestion.php?table=manager" method="post">
       <label for="">Ajouter un nouveau Manager : </label>
-      <select class="form-control" name="manager_id">
+      <select class="form-control" name="id_manager">
         {% for user in users %}
+        <!-- On affiche que les utilisateurs qui ne sont pas déjà managers -->
+          {% if user.role != 1 %}
           <option value='{{user.id}}'>{{user.prenom}} {{user.nom}}</option>
+          {% endif %}
         {% endfor %}
       </select>
 
       <input type="submit" class="btn btn-success"  value="Ajouter">
 
-      {% if POST.libelleTheme is not null %}
+      {% if POST.id_manager is not null %}
         {{confirmAjoutManager}}
       {% endif %}
 
-      {% if GET.id_theme is not null %}
+      {% if GET.id_manager is not null %}
         {{confirmSuprManager}}
       {% endif %}
   </form>
 
   <h3>Liste des Managers : </h3>
 
-    {% if themes is empty %}
+    {% if managers is empty %}
       <h4>Aucun Manager n'a encore été ajouté.</h4>
     {% else %}
 
@@ -36,7 +39,13 @@
       <tr>
         <td>{{manager.id}}</td>
         <td>{{manager.nom}} {{manager.prenom}}</td>
-        <td>{{manager.site}}</td>
+        <td>
+          {% if manager.nomAgence is not null %}
+          {{manager.nomAgence}} ({{manager.departementAgence}})
+          {% else %}
+            Agence non renseignée
+          {% endif %}
+        </td>
         <td>
           <a href="adminGestion.php?id_manager={{manager.id}}&amp;table=manager"><button class="btn btn-danger" type="button" name="delete">Supprimer</button></a>
         </td>

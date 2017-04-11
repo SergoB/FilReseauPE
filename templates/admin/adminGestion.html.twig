@@ -15,7 +15,7 @@
   {% elseif GET.table =='manager' %}
   {% include 'admin/gestionTables/gestionManagers.html.twig' %}
   {% elseif GET.table =='expert' %}
-  <p>Les experts</p>
+  {% include 'admin/gestionTables/gestionExperts.html.twig' %}
   {% elseif GET.table =='agence' %}
   {% include 'admin/gestionTables/gestionAgences.html.twig' %}
   {% else %}
