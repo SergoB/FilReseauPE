@@ -43,7 +43,7 @@
     <label for="">Agence : </label>
     <select class="form-control" name="agence">
       {% for agence in agences %}
-        <option value="{{agence.id}}">{{agence.libelle}} ({{agence.departement}})</option>
+        <option value="{{agence.id}}">{{agence.nom}} ({{agence.departement}})</option>
       {% endfor %}
     </select>
   </div>

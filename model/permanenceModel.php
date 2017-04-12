@@ -1,7 +1,7 @@
 <?php
 
 // Classe regroupant les méthodes de gestion des permanences
-class permanenceModel
+class PermanenceModel
 {
   private $db;
 

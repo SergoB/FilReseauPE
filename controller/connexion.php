@@ -37,11 +37,17 @@ if (isset($_POST['validConnexion']))
       }
     }
   }
+  //Par défaut si la personne n'essaie pas de se connecter
   else
   {
+    //On souhaite afficher la liste des postits pour les utilisateurs hors connexion
+    require_once("../model/postitModel.php");
+    $postitModel = new PostitModel($connexion);
+
     $template = $twig -> loadTemplate ('layout.html.twig');
     echo $template -> render(
       array(
         'SESSION'=>$_SESSION,
+        'postits'=>$postitModel->get_postits(),
       ));
   }

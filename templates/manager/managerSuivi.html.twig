@@ -3,50 +3,148 @@
 
 
 {% block body %}
-  <section class="container">
-    <h2>Mes demandes en cours de traitement</h2>
-      <p class="alert alert-warning">
-        Les demandes suivantes sont en cours de traitement. Vous pouvez consulter les réponses qui vous ont été proposées et y répondre si vous souhaitez un complément d'information.
-      </p>
-      <table class="table table-bordered">
-        <tr class="bg-primary">
-          <td>N°</td>
-          <td>Objet de la demande</td>
-          <td>Etat</td>
-          <td>Date</td>
-          <td>Réponse(s)</td>
-        </tr>
+<section class="container">
+
+  <!--Liste des demandes en attente ---------------->
+
+  <h2>Mes demandes en attente de traitement</h2>
+  {% if POST.validerDemande is not empty %}
+  <p class="alert alert-info">Votre demande a bien été envoyée, elle sera traitée dans les plus brefs délais</p>
+  {% endif %}
+
+  {% if demandesEnAttente is empty%}
+  <p class="alert alert-warning">Aucune demande n'est en attente de traitement</p>
+
+  {% else %}
+  <table class="table table-bordered">
+    <tr class="bg-primary">
+      <td>N°</td>
+      <td>Objet de la demande</td>
+      <td>Etat</td>
+      <td>Date</td>
+      <td>Actions</td>
+    </tr>
 
 
-        <tr>
-          <td>1</td>
-          <td>Annulation AFPR</td>
-          <td>En cours de traitement</td>
-          <td>11/03/2017</td>
-          <td><a href="#">1</a></td>
-        </tr>
-      </table>
-    <h2>Mes demandes traitées</h2>
-    <p class="alert alert-success">
-      Les demandes suivantes ont été traitées et validées. Vous pouvez les consulter à tout moment.
-    </p>
-    <table class="table table-bordered">
-      <tr class="bg-success">
-        <td>N°</td>
-        <td>Objet de la demande</td>
-        <td>Etat</td>
-        <td>Date</td>
-        <td>Réponse(s)</td>
-      </tr>
+    {% for demande in demandesEnAttente %}
+    <tr>
+      <td>{{demande.id}}</td>
+      <td>{{demande.libelleTheme}}</td>
+      <td>{{demande.etatDemande}}</td>
+      <td>{{demande.datePost|date('d/m/Y à H:i:s')}}</td>
+      <td><a href="managerConsulterDemande.php?id_demande={{demande.id}}"><button type="button" name="button" class="btn btn-success">Consulter</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
 
 
-      <tr>
-        <td>1</td>
-        <td>Paiement AFPR</td>
-        <td>Traitée</td>
-        <td>12/03/2016</td>
-        <td><a href="managerConsulterDemande.php">4</a></td>
-      </tr>
-    </table>
-  </section>
+  <!-- Liste des demandes en attente d'info ------------------>
+  <h2>Mes demandes en attente d'informations complémentaires</h2>
+
+  {% if demandesInfoComp is empty %}
+
+  <p class="alert alert-warning">Aucune de vos demandes n'est en attente d'informations complémentaires.</p>
+
+  {% else %}
+  <p class="alert alert-warning">
+    Les demandes suivantes sont en attente d'informations complémentaires. N'oubliez pas d'y répondre pour finaliser votre demande.
+  </p>
+
+  <table class="table table-bordered">
+    <tr class="bg-success">
+      <td>N°</td>
+      <td>Objet de la demande</td>
+      <td>Etat</td>
+      <td>Date</td>
+      <td>Actions</td>
+    </tr>
+
+
+    {% for demande in demandesInfoComp %}
+    <tr>
+      <td>{{demande.id}}</td>
+      <td>{{demande.libelleTheme}}</td>
+      <td>{{demande.etatDemande}}</td>
+      <td>{{demande.datePost}}</td>
+      <td><a href="managerConsulterDemande.php?id_demande={{demande.id}}"><button type="button" name="button" class="btn btn-warning">Répondre</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+
+
+  <!-- Liste des demandes envoyées au national-------->
+  <h2>Mes demandes envoyées au national</h2>
+
+  {% if demandesTraitees is empty %}
+
+  <p class="alert alert-warning">Aucune de vos demandes n'a été envoyée au national.</p>
+
+  {% else %}
+  <p class="alert alert-danger">
+    Les demandes suivantes ont été envoyées au national. Vous serez recontacté prochainement.
+  </p>
+
+  <table class="table table-bordered">
+    <tr class="bg-success">
+      <td>N°</td>
+      <td>Objet de la demande</td>
+      <td>Etat</td>
+      <td>Date</td>
+      <td>Actions</td>
+    </tr>
+
+
+    {% for demande in demandesAuNational %}
+    <tr>
+      <td>{{demande.id}}</td>
+      <td>{{demande.libelleTheme}}</td>
+      <td>{{demande.etatDemande}}</td>
+      <td>{{demande.datePost}}</td>
+      <td><a href="managerConsulterDemande.php?id_demande={{demande.id}}"><button type="button" name="button" class="btn btn-success">Consulter</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+
+
+  <!-- Liste des demandes traitées --------------->
+  <h2>Mes demandes traitées</h2>
+
+  {% if demandesTraitees is empty %}
+
+  <p class="alert alert-warning">Aucune de vos demandes n'a été traitée pour le moment.</p>
+
+  {% else %}
+  <p class="alert alert-success">
+    Les demandes suivantes ont été traitées et validées. Vous pouvez les consulter à tout moment.
+  </p>
+
+  <table class="table table-bordered">
+    <tr class="bg-success">
+      <td>N°</td>
+      <td>Objet de la demande</td>
+      <td>Etat</td>
+      <td>Date</td>
+      <td>Actions</td>
+    </tr>
+
+
+    {% for demande in demandesTraitees %}
+    <tr>
+      <td>{{demande.id}}</td>
+      <td>{{demande.libelleTheme}}</td>
+      <td>{{demande.etatDemande}}</td>
+      <td>{{demande.datePost}}</td>
+      <td><a href="managerConsulterDemande.php?id_demande={{demande.id}}"><button type="button" name="button" class="btn btn-success">Consulter</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+
+</section>
 {% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-class agenceModel
+class AgenceModel
 {
   private $db;
 

@@ -17,7 +17,7 @@ $userModel = new userModel($connexion);
 // ------------------GESTION DES PERMANENCES------------------------------
 //------------------------------------------------------------------------
 require_once("../model/permanenceModel.php");
-$permanenceModel = new permanenceModel($connexion);
+$permanenceModel = new PermanenceModel($connexion);
 
 //Gestion de l'ajout d'une permanence
 if (!empty($_POST['validerPermanence']))

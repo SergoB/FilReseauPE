@@ -1,72 +1,50 @@
 {% extends 'layout.html.twig' %}
 
 {% block navbar %}
-    <a class="col-md-2 col-xs-3 home" href="expertHome.php"><h3>Fil Réseau</h3></a>
-    <div class="col-md-7 col-xs-5">
-      <ul class="nav nav-pills">
-        <li role="presentation" class="navElement"><a href="expertHome.php">Demandes en attente de résolution</a></li>
-        <li role="presentation" class="navElement"><a href="bibliotheque.php">Bibliothèque</a></li>
-        <li role="presentation" class="navElement"><a href="contact.php">Contactez-nous</a></li>
-      </ul>
-    </div>
+<a class="col-md-2 col-xs-3 home" href="expertHome.php"><h3>Fil Réseau</h3></a>
+<div class="col-md-7 col-xs-5">
+  <ul class="nav nav-pills">
+    <li role="presentation" class="navElement"><a href="expertHome.php">Demandes en attente de résolution</a></li>
+    <li role="presentation" class="navElement"><a href="expertHome.php">Gestion post-its</a></li>
+    <li role="presentation" class="navElement"><a href="bibliotheque.php">Recherche demande</a></li>
+  </ul>
+</div>
 {% endblock %}
 
 {% block body %}
+<div class="intro">
+  <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
+  <p>Consultez la liste des demandes en cours, traitez celles que vous souhaitez et sauvegardez dans la bibliothèque les réponses les plus "utiles"</p>
+</div>
 
-  <div class="intro">
-    <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
-    <p>Consultez la liste des demandes en cours, traitez celles que vous souhaitez et sauvegardez dans la bibliothèque les réponses les plus "utiles"</p>
-  </div>
+{% if POST.validerPostit is not empty %}
+<p class="alert alert-success">Votre postit a bien été ajouté.</p>
+{% endif %}
 
+<div>
+  <h3>Demandes en attente de résolution</h3>
+  {% if demandes is empty %}
+  <p class="alert alert-success">Aucune demande en attente de résolution</p>
+  {% else %}
+  <table class="table table-bordered">
+    <tr class="bg-primary">
+      <td>N° de demande</td>
+      <td>Thème</td>
+      <td>Date</td>
+      <td>Action</td>
+    </tr>
 
-  <div>
-    <h3>Vos demandes en cours de traitement</h3>
-    <p class="alert alert-warning">
-      Vous êtes intervenu sur les demandes suivantes, mais elles n'ont pas encore été réglées. <br>
-      Répondez aux demandes d'informations complémentaires ou validez la résolution si vous estimez que la solution a déjà été apporté.
-    </p>
-    <table class="table table-bordered">
-      <tr class="bg-info">
-        <td>N°</td>
-        <td>Auteur </td>
-        <td>Objet de la demande</td>
-        <td>Thème</td>
-        <td>Date</td>
-        <td>Réponse(s)</td>
-      </tr>
-
-      <tr>
-        <td>1</td>
-        <td>Michel DURAND</td>
-        <td>Annulation AFPR</td>
-        <td>Formation</td>
-        <td>04/04/2017</td>
-        <td><a href="expertDemande.php">3</a></td>
-      </tr>
-    </table>
-
-
-    <h3>Liste des demandes en attente de traitement</h3>
-    <table class="table table-bordered">
-      <tr class="bg-primary">
-        <td>N°</td>
-        <td>Auteur </td>
-        <td>Objet de la demande</td>
-        <td>Thème</td>
-        <td>Date</td>
-        <td>Action</td>
-      </tr>
-
-      <tr>
-        <td>1</td>
-        <td>Michel DURAND</td>
-        <td>Annulation AFPR</td>
-        <td>Formation</td>
-        <td>04/04/2017</td>
-        <td><a href="expertDemande.php"><button type="button" class="btn btn-success">Consulter</button></a></td>
-      </tr>
-    </table>
-  </div>
+    {% for demande in demandes %}
+    <tr>
+      <td>{{demande.id}}</td>
+      <td>{{demande.libelleTheme}}</td>
+      <td>{{demande.datePost|date('d/m/Y à H:i:s')}}</td>
+      <td><a href="expertDemande.php?id_demande={{demande.id}}"><button type="button" class="btn btn-success">Consulter</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+</div>
 
 
 {% endblock %}

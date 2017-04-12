@@ -3,52 +3,48 @@
 
 {% block body %}
 <div class="container">
-  <h1>Créer une nouvelle demande</h1>
-  <form action="managerHome.php" class="form" method="post">
+  <h1>Créer une nouvelle demande le {{date}}</h1>
+  <form action="managerSuivi.php" class="form" method="post">
 
-
-    <!-- Infos demandeur -->
     <h3>Informations sur la demande :</h3>
-
     <div class="input-group col-xs-8">
-      <label>Type de personne concerné :</label>
-      <select class=form-control>
-        <option value="dde">Demandeur d'emploi</option>
-        <option value="etp">Entreprise</option>
+      <label >Type de personne concernée</label>
+      <select class="form-control" name="personneConcerne" required="true">
+        <option value="Entreprise">Entreprise</option>
+        <option value="Demandeur d'emploi">Demandeur d'emploi</option>
+        <option value="autre">Autre</option>
       </select>
     </div>
 
     <div class="input-group col-xs-8">
-      <label>Identifiant (SIREN/SIRET ou numéro de demandeur d'emploi) :</label>
-      <input type="text" class="form-control" placeholder="Identifiant du demandeur">
+      <label>Identifiant de la personne concernée (SIREN, SIRET, numéro de demandeur d'emploi...) :</label>
+      <input type="text" class="form-control" name="idConcerne" required="true" placeholder="Saisissez les informations permettant d'identifier la personne concernée.">
     </div>
 
     <div class="input-group col-xs-8">
       <label>Thème de la demande :</label>
-      <select class=form-control>
-        <option value="dde">Formation</option>
-        <option value="etp">pole-emploi.fr</option>
+      <select class=form-control name="idTheme" required="true">
+        {% for theme in themes %}
+            <option value="{{theme.id}}">{{theme.libelle}}</option>
+        {% endfor %}
       </select>
     </div>
-
-
-    <!-- ------------------------------------------------ -->
 
     <h3>Votre demande : </h3>
 
     <div class="input-group col-xs-8">
       <label>Description :</label>
-      <textarea class="form-control" name="name" rows="3" placeholder="Décrivez votre demande le plus précisément possible. (500 caractères maximum)"></textarea>
+      <textarea class="form-control" name="description" rows="3" required="true" placeholder="Décrivez votre demande le plus précisément possible. (500 caractères maximum)"></textarea>
     </div>
 
     <div class="input-group col-xs-8">
       <label>Ajouter une pièce jointe :</label>
-      <input type="file">
+      <input type="file" name="pj">
     </div>
 
     <br>
 
-    <input type="submit" class="btn btn-primary" value="Valider">
+    <input type="submit" class="btn btn-primary " name="validerDemande" value="Valider">
   </form>
 
 

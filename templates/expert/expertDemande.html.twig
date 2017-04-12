@@ -5,36 +5,73 @@
 {% block body %}
 
   <section class="demande">
+    {% if demande is not empty %}
     <div class="row">
       <div class="col-lg-6">
-        <h3>Demande n°1</h3>
+        <h3>Demande n°{{demande.id}}</h3>
       </div>
 
       <div class="col-lg-3">
-        <button type="button" class="btn btn-success" name="button">Archiver la demande</button>
+        <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=epingler">
+          <button type="button" class="btn btn-success" name="button">Epingler la demande</button>
+        </a>
       </div>
 
       <div class="col-lg-3">
-        <button type="button" class="btn btn-warning" name="button">Clore la demande</button>
+        <a href="#">
+          <button type="button" class="btn btn-warning" name="button">Clore et archiver la demande</button>
+        </a>
       </div>
+
     </div>
-    
+
+    {% if GET.choixAction == 'epingler' %}
+    <div class="row post-it">
+      <h3>Ajouter un nouveau post-it :</h3>
+      <p>
+        <i>Les post-its permettent de fournir aux utilisateurs non connectés une liste pertinente de réponses types aux questions fréquemment posées. <br>
+         Une fois votre post-it validé, celui-ci sera immédiatement affiché sur la page d'accueil de la plateforme.</i>
+      </p>
+
+      <form class="form" action="expertHome.php" method="post">
+        <div class="input-group col-xs-8">
+          <label>Titre du post-it : </label>
+          <input class="form-control" type="text" name="titrePostit" placeholder="Saisissez un titre pour votre post-it">
+        </div>
+
+        <div class="input-group col-xs-8">
+          <label>Question type : </label>
+          <textarea name="questionType" class="form-control" rows="4" cols="80">{{demande.description}}</textarea>
+        </div>
+
+        <div class="input-group col-xs-8">
+          <label>Réponse type : </label>
+          <textarea name="reponseType" class="form-control" rows="4" cols="80" placeholder="Saisissez une réponse type à cette question."></textarea>
+        </div>
+
+        <div class="input-group">
+          <br>
+          <input type="submit" name="validerPostit" class="btn btn-primary" value="Ajouter le post-it">
+        </div>
+      </form>
+    </div>
+    {% endif %}
     <hr>
 
     <div class="row headerDemande bg-info">
-      <p class="col-lg-6"><b>Auteur de la demande : </b> Pascal DUPUY</p>
-      <p class="col-lg-6"><b>Agence :</b>  Ingré(45)</p>
-      <p class="col-lg-6"><b>Adresse mail : </b> pascal.dupuy@pole-emploi.fr</p>
-      <p class="col-lg-6"><b>Téléphone : </b> 0721201212</p>
-      <p class="col-lg-6"> <b>Thème : </b> Formation </p>
-      <p class="col-lg-6"> <b>Sous-thème : </b> Financement des formations</p>
+      <p class="col-lg-6"><b>Auteur de la demande : </b> {{demande.manager}}</p>
+      <p class="col-lg-6"><b>Adresse mail : </b> {{demande.emailManager}}</p>
+      <p class="col-lg-6"><b>Agence :</b>  {{demande.nomAgence}} ({{demande.departement}})</p>
+      <p class="col-lg-6"><b>Date de la demande : </b> {{demande.datePost|date('d/m/Y à H:i:s')}}</p>
+      <p class="col-lg-6"> <b>Personne concernée : </b> {{demande.personne_concerne}}</p>
+      <p class="col-lg-6"> <b>Identifiant personne concernée : </b> {{demande.id_concerne}}</p>
     </div>
 
-    <h4><b>Objet : Financement des formations</b></h4>
+    <h4><b>Thème : {{demande.libelleTheme}}</b></h4>
 
     <div class="corpsDemande row bg-success">
-      <p class="col-lg-12"><i>Pascal DUPUY le 04/04/2017 à 16h38</i></p>
-      <p class="col-lg-12"><b>Description : </b> <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p class="col-lg-12"><i>{{demande.manager}} le {{demande.datePost|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{demande.description}}</p>
     </div>
 
     <div class="corpsDemande row bg-warning">
@@ -42,14 +79,22 @@
       <p class="col-lg-12"><b>Description : </b> <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
 
-    <h4>Apporter une réponse : </h4>
+    <h4>Répondre : </h4>
     <form class="form row" action="index.html" method="post">
       <div class="input-group col-lg-6">
-        <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="Saisissez votre réponse à la demande formulée (1000 caractères max)"></textarea>
+        <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)"></textarea>
         <br>
         <input type="submit" class="btn btn-success" value="Envoyer">
       </div>
     </form>
+
+    <!-- Si variable demande est null : Erreur la demande n'existe pas -->
+    {% else %}
+    <p class="alert alert-danger">Erreur : La demande que vous essayez de consulter n'existe pas ou a été supprimée</p>
+    <a href="managerSuivi.php"><button type="button" class="btn btn-warning" name="button">Retour à la liste des demandes.</button></a>
+
+    {% endif %}
+
   </section>
 
 {% endblock %}

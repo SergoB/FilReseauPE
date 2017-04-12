@@ -14,7 +14,7 @@ include ('../model/empecherRepetitionPOST.php');
 
 //Regroupe l'ensemble des méthodes permettant la gestion des tables de la bdd
 require_once('../model/themeModel.php');
-$themeModel = new themeModel($connexion);
+$themeModel = new ThemeModel($connexion);
 
   //Traitement de la requête d'ajout d'un nouveau thème
   if (!empty($_POST['libelleTheme'])) {
@@ -43,7 +43,7 @@ $themeModel = new themeModel($connexion);
 
 //Regroupe l'ensemble des méthodes permettant la gestion des tables de la bdd
 require_once('../model/userModel.php');
-$userModel = new userModel($connexion);
+$userModel = new UserModel($connexion);
 
   //Traitement de la requête d'ajout d'un nouveau thème
   if (!empty($_POST['id_manager'])) {
@@ -95,7 +95,7 @@ $userModel = new userModel($connexion);
 //------------------------------------------------------------------------
 
 require_once('../model/agenceModel.php');
-$agenceModel = new agenceModel($connexion);
+$agenceModel = new AgenceModel($connexion);
 
   //Traitement de la requête d'ajout d'un nouveau thème
   if (!empty($_POST['libelleAgence'])) {

@@ -48,11 +48,16 @@
     <p class="alert alert-info">Les questions et réponses suivantes ont été jugées utiles.
       Si la réponse à votre demande n'y apparait pas, vous pouvez formuler une nouvelle demande en vous connectant à la platforme en tant que Manager.
     </p>
+
+    {% if postits is empty %}
+    C'est vide!
+    {% endif %}
     <div class="actualite">
-      <a href="#"><p>Post it (1) Question / réponse type</p></a>
-      <a href="#"><p>Post it (2) Question / réponse type</p></a>
-      <a href="#"><p>Post it (3) Question / réponse type</p></a>
+      {% for postit in postits %}
+      <p><a href="#">{{postit.titre}}</a> - par {{postit.expert}} le {{postit.date|date('d/m/Y à H:i:s')}}</p>
+      {% endfor %}
     </div>
+
     <h3>Accès rapide aux différents espaces (pour la phase de test)</h3>
     <a href="managerHome.php">Espace Manager</a> <br>
     <a href="expertHome.php">Espace Expert</a><br>

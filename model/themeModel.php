@@ -1,7 +1,7 @@
 <?php
 
 // Declaration class manager
-class themeModel
+class ThemeModel
 {
   private $db;
 

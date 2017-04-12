@@ -1,7 +1,7 @@
 <?php
 
 // Classe regroupant les méthodes de gestion des utilisateurs
-class userModel
+class UserModel
 {
   private $db;
 
@@ -25,7 +25,7 @@ class userModel
 
       $requete = $this->db->prepare
       ('
-      INSERT INTO utilisateur(email,nom,prenom,mdp, agence)
+      INSERT INTO utilisateur(email,nom,prenom,mdp, id_agence)
       VALUES (?,?,?,?,?)
       ');
 

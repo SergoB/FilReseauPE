@@ -10,10 +10,10 @@ include ('../model/empecherRepetitionPOST.php');
 
 //Regroupe l'ensemble des méthodes permettant la gestion des tables de la bdd
 require_once("../model/userModel.php");
-$userModel = new userModel($connexion);
+$userModel = new UserModel($connexion);
 
 require_once("../model/agenceModel.php");
-$agenceModel = new agenceModel($connexion);
+$agenceModel = new AgenceModel($connexion);
 
 // -----------------------------------------------------------------------
 // ------------------GESTION INSCRIPTION ---------------------------------

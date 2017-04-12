@@ -3,33 +3,33 @@
 
 
 {% block body %}
+
 <section class="demande">
+
+  {% if demande is not empty %}
   <div class="row">
     <div class="col-lg-6">
-      <h3>Demande n°1</h3>
+      <h3>Demande n°{{demande.id}}</h3>
     </div>
 
-    <div class="col-lg-3">
-      <button type="button" class="btn btn-warning" name="button">Clore la demande</button>
-    </div>
   </div>
 
   <hr>
 
   <div class="row headerDemande bg-info">
-    <p class="col-lg-6"><b>Auteur de la demande : </b> Pascal DUPUY</p>
-    <p class="col-lg-6"><b>Agence :</b>  Ingré(45)</p>
-    <p class="col-lg-6"><b>Adresse mail : </b> pascal.dupuy@pole-emploi.fr</p>
-    <p class="col-lg-6"><b>Téléphone : </b> 0721201212</p>
-    <p class="col-lg-6"> <b>Thème : </b> Formation </p>
-    <p class="col-lg-6"> <b>Sous-thème : </b> Financement des formations</p>
+    <p class="col-lg-6"><b>Auteur de la demande : </b> {{demande.manager}}</p>
+    <p class="col-lg-6"><b>Adresse mail : </b> {{demande.emailManager}}</p>
+    <p class="col-lg-6"><b>Agence :</b>  {{demande.nomAgence}} ({{demande.departement}})</p>
+    <p class="col-lg-6"><b>Date de la demande : </b> {{demande.datePost|date('d/m/Y à h:m:s')}}</p>
+    <p class="col-lg-6"> <b>Personne concernée : </b> {{demande.personne_concerne}}</p>
+    <p class="col-lg-6"> <b>Identifiant personne concernée : </b> {{demande.id_concerne}}</p>
   </div>
 
-  <h4><b>Objet : Financement des formations</b></h4>
+  <h4><b>Thème : {{demande.libelleTheme}}</b></h4>
 
   <div class="corpsDemande row bg-success">
-    <p class="col-lg-12"><i>Pascal DUPUY le 04/04/2017 à 16h38</i></p>
-    <p class="col-lg-12"><b>Description : </b> <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p class="col-lg-12"><i>{{demande.manager}} le {{demande.datePost|date('d/m/Y à h:m:s')}}</i></p>
+    <p class="col-lg-12"><b>Description : </b> <br>{{demande.description}}</p>
   </div>
 
   <div class="corpsDemande row bg-warning">
@@ -45,5 +45,12 @@
       <input type="submit" class="btn btn-success" value="Envoyer">
     </div>
   </form>
+
+  <!-- Si variable demande est null : Erreur la demande n'existe pas -->
+  {% else %}
+  <p class="alert alert-danger">Erreur : La demande que vous essayez de consulter n'existe pas ou a été supprimée</p>
+  <a href="managerSuivi.php"><button type="button" class="btn btn-warning" name="button">Retour à la liste des demandes.</button></a>
+
+  {% endif %}
 </section>
 {% endblock %}
