@@ -56,4 +56,19 @@ class PostitModel
     return $postits->fetchAll();
   }
 
+  // Retourne un post-it et ses informations selon son ID
+  function get_postit($id_postit)
+  {
+      $postit = $this->db->prepare
+      ('
+        SELECT postit.id, titre, questionType, reponseType, date, CONCAT(utilisateur.prenom," ", utilisateur.nom) as expert
+        FROM postit
+        JOIN utilisateur ON postit.id_expert = utilisateur.id
+        WHERE postit.id = ?
+      ');
+
+      $postit->execute(array($id_postit));
+
+      return $postit->fetch();
+  }
 }

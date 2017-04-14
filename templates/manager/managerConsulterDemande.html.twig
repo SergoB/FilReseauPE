@@ -10,6 +10,10 @@
   <div class="row">
     <div class="col-lg-6">
       <h3>Demande n°{{demande.id}}</h3>
+
+      {% if POST.validerReponse is not empty %}
+      <p class="alert alert-success">Votre réponse a bien été envoyée.</p>
+      {% endif %}
     </div>
 
   </div>
@@ -28,25 +32,50 @@
   <h4><b>Thème : {{demande.libelleTheme}}</b></h4>
 
   <div class="corpsDemande row bg-success">
-    <p class="col-lg-12"><i>{{demande.manager}} le {{demande.datePost|date('d/m/Y à h:m:s')}}</i></p>
+    <p class="col-lg-12"><i>Demande de {{demande.manager}} le {{demande.datePost|date('d/m/Y à h:m:s')}}</i></p>
     <p class="col-lg-12"><b>Description : </b> <br>{{demande.description}}</p>
   </div>
 
-  <div class="corpsDemande row bg-warning">
-    <p class="col-lg-12"><i>Réponse apportée par Michel DURAND le 04/04/2017 à 16h38</i></p>
-    <p class="col-lg-12"><b>Description : </b> <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </div>
-
-  <h4>Répondre : </h4>
-  <form class="form row" action="index.html" method="post">
-    <div class="input-group col-lg-6">
-      <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)"></textarea>
-      <br>
-      <input type="submit" class="btn btn-success" value="Envoyer">
+  {% for reponse in reponses %}
+    {% if reponse.auteurRole == 2 %}
+    <div class="corpsDemande row bg-warning">
+      <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
     </div>
-  </form>
+    {% elseif reponse.auteurRole == 1 %}
+    <div class="corpsDemande row bg-success">
+      <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
+    </div>
+    {% endif %}
+  {% endfor %}
 
-  <!-- Si variable demande est null : Erreur la demande n'existe pas -->
+    <!-- le manager peut ajouter une réponse à sa demande que si
+    celle-ci est en attente de traitement, ou en attente d'infos complémentaires -->
+    {% if demande.etatDemande == "En attente" or demande.etatDemande == "Demande d'infos complémentaires" %}
+    <h4>Répondre : </h4>
+      <form class="form row" action="managerConsulterDemande.php?id_demande={{demande.id}}" method="post">
+        <div class="input-group col-lg-8">
+          <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)" name="contenuReponse" required="true"></textarea>
+        </div>
+
+        <div class="input-group col-xs-8">
+          <label>Ajouter une pièce jointe :</label>
+          <input type="file" name="pj">
+          <br>
+        </div>
+
+        <input type="submit" class="btn btn-success" value="Envoyer" name="validerReponse">
+      </form>
+
+      {% elseif demande.etatDemande == "Envoyée au national" %}
+      <p class="alert alert-warning">Votre demande a été envoyée au national. Vous serez recontacté prochainement.</p>
+
+      {% elseif demande.etatDemande == "Traitée" %}
+      <p class="alert alert-success">Votre demande a été traitée et validée</p>
+    {% endif %}
+
+  <!-- Si variable demande est nulle : Erreur la demande n'existe pas -->
   {% else %}
   <p class="alert alert-danger">Erreur : La demande que vous essayez de consulter n'existe pas ou a été supprimée</p>
   <a href="managerSuivi.php"><button type="button" class="btn btn-warning" name="button">Retour à la liste des demandes.</button></a>

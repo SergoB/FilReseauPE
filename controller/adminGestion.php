@@ -8,6 +8,17 @@ $connexion = dbconnect();
 //Permet d'empêcher la rééxécution d'une requête après actualisation page
 include ('../model/empecherRepetitionPOST.php');
 
+
+//--------Verification du rôle utilisateur.
+//On ne peut accéder à la page que si on est admin
+if (empty($_SESSION['user']['role']) || $_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2)
+{
+    header('Location:index.php');
+}
+//--------Fin de la vérification du rôle-------------
+
+
+
 // -----------------------------------------------------------------------
 // ------------------GESTION DES THEMES-----------------------------------
 //------------------------------------------------------------------------

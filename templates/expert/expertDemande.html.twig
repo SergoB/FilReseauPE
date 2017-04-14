@@ -4,49 +4,70 @@
 
 {% block body %}
 
-  <section class="demande">
-    {% if demande is not empty %}
-    <div class="row">
-      <div class="col-lg-6">
-        <h3>Demande n°{{demande.id}}</h3>
-      </div>
+<section class="demande">
+  {% if demande is not empty %}
+  <div class="row">
+    <div class="col-lg-6">
+      <h3>Demande n°{{demande.id}}</h3>
 
-      <div class="col-lg-3">
-        <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=epingler">
-          <button type="button" class="btn btn-success" name="button">Epingler la demande</button>
-        </a>
-      </div>
+      {% if POST.validerPostit is not empty %}
+      <p class="alert alert-success">Votre postit a bien été ajouté et la demande a été archivée.</p>
+      {% endif %}
 
-      <div class="col-lg-3">
-        <a href="#">
-          <button type="button" class="btn btn-warning" name="button">Clore et archiver la demande</button>
-        </a>
-      </div>
+      {% if GET.choixAction == 'archiver' %}
+      <p class="alert alert-warning">Cette demande a bien été archivée.</p>
+      {% endif %}
+
+      {% if POST.validerTraitement is not empty %}
+      <p class="alert alert-success">Cette demande a bien été traitée. Vous pourrez la retrouver par la suite et l'épingler sur l'espace de gestion des post-its</p>
+      {% endif %}
+
+      {% if POST.validerDemandeInfo is not empty %}
+      <p class="alert alert-warning">La demande d'informations a bien été envoyée au manager.</p>
+      {% endif %}
+
+      {% if POST.validerEnvoiNational is not empty %}
+      <p class="alert alert-warning">Cette demande est désormais dans l'état "envoyé au national".</p>
+      {% endif %}
 
     </div>
 
-    {% if GET.choixAction == 'epingler' %}
-    <div class="row post-it">
-      <h3>Ajouter un nouveau post-it :</h3>
-      <p>
-        <i>Les post-its permettent de fournir aux utilisateurs non connectés une liste pertinente de réponses types aux questions fréquemment posées. <br>
-         Une fois votre post-it validé, celui-ci sera immédiatement affiché sur la page d'accueil de la plateforme.</i>
+    <div class="col-lg-3">
+      <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=epingler">
+        <button type="button" class="btn btn-success" name="button">Epingler la demande</button>
+      </a>
+    </div>
+
+    <div class="col-lg-3">
+      <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=archiver">
+        <button type="button" class="btn btn-warning" name="button">Archiver la demande</button>
+      </a>
+    </div>
+
+  </div>
+
+  {% if GET.choixAction == 'epingler' %}
+  <div class="row post-it">
+    <h3>Ajouter un nouveau post-it :</h3>
+    <p>
+      <i>Les post-its permettent de fournir aux utilisateurs non connectés une liste pertinente de réponses types aux questions fréquemment posées. <br>
+        Une fois votre post-it validé, celui-ci sera immédiatement affiché sur la page d'accueil de la plateforme.</i>
       </p>
 
-      <form class="form" action="expertHome.php" method="post">
+      <form class="form" action="expertDemande.php?id_demande={{demande.id}}" method="post">
         <div class="input-group col-xs-8">
           <label>Titre du post-it : </label>
-          <input class="form-control" type="text" name="titrePostit" placeholder="Saisissez un titre pour votre post-it">
+          <input class="form-control" type="text" name="titrePostit" placeholder="Saisissez un titre pour votre post-it" required="true">
         </div>
 
         <div class="input-group col-xs-8">
           <label>Question type : </label>
-          <textarea name="questionType" class="form-control" rows="4" cols="80">{{demande.description}}</textarea>
+          <textarea name="questionType" class="form-control" rows="4" cols="80" required="true">{{demande.description}}</textarea>
         </div>
 
         <div class="input-group col-xs-8">
           <label>Réponse type : </label>
-          <textarea name="reponseType" class="form-control" rows="4" cols="80" placeholder="Saisissez une réponse type à cette question."></textarea>
+          <textarea name="reponseType" class="form-control" rows="4" cols="80" placeholder="Saisissez une réponse type à cette question." required="true"></textarea>
         </div>
 
         <div class="input-group">
@@ -69,24 +90,75 @@
 
     <h4><b>Thème : {{demande.libelleTheme}}</b></h4>
 
+    <!-- Affichage message initial -->
     <div class="corpsDemande row bg-success">
       <p class="col-lg-12"><i>{{demande.manager}} le {{demande.datePost|date('d/m/Y à H:i:s')}}</i></p>
       <p class="col-lg-12"><b>Description : </b> <br>{{demande.description}}</p>
     </div>
 
+    <!-- Affichage de la liste des réponses à cette demande -->
+    {% for reponse in reponses %}
+    {% if reponse.auteurRole == 2 %}
     <div class="corpsDemande row bg-warning">
-      <p class="col-lg-12"><i>Réponse apportée par Michel DURAND le 04/04/2017 à 16h38</i></p>
-      <p class="col-lg-12"><b>Description : </b> <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
+    </div>
+    {% elseif reponse.auteurRole == 1 %}
+    <div class="corpsDemande row bg-success">
+      <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <!-- L'expert choisit son action pour cette demande -->
+    <div class="row choixActionDemande">
+      <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=traiter">
+        <button type="button" class="btn btn-success" name="button">Traiter la demande</button>
+      </a>
+
+      <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=demanderInfoComp">
+        <button type="button" class="btn btn-warning" name="button">Demander des informations complémentaires</button>
+      </a>
+
+      <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=envoyerNational">
+        <button type="button" class="btn btn-danger" name="button">Envoyer au national</button>
+      </a>
     </div>
 
-    <h4>Répondre : </h4>
-    <form class="form row" action="index.html" method="post">
-      <div class="input-group col-lg-6">
-        <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)"></textarea>
-        <br>
-        <input type="submit" class="btn btn-success" value="Envoyer">
+
+    <!-- Selon le choix de l'action on affiche ou non ce champ : -->
+    {% if GET.choixAction == 'traiter' %}
+    <h4>Traitement de la demande : </h4>
+    <form class="form row" action="expertDemande.php?id_demande={{demande.id}}" method="post">
+      <div class="input-group col-lg-8">
+        <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)" name="contenuReponse" required="true"></textarea>
       </div>
+      <br>
+      <input type="submit" class="btn btn-success" value="Envoyer" name="validerTraitement">
     </form>
+
+    {% elseif GET.choixAction == 'demanderInfoComp' %}
+    <h4>Demande d'informations complémentaires : </h4>
+    <form class="form row" action="expertDemande.php?id_demande={{demande.id}}" method="post">
+      <div class="input-group col-lg-8">
+        <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)" name="contenuReponse" required="true"></textarea>
+      </div>
+      <br>
+      <input type="submit" class="btn btn-success" value="Envoyer" name="validerDemandeInfo">
+    </form>
+
+    {% elseif GET.choixAction == 'envoyerNational' %}
+    <h4>Envoie de la demande au national : </h4>
+    <form class="form row" action="expertDemande.php?id_demande={{demande.id}}" method="post">
+      <div class="input-group col-lg-8">
+        <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)" name="contenuReponse" required="true">Bonjour, votre demande va être envoyée au national, vous serez tenu informé par mail dès que nous aurons eu une réponse. Cordialement,</textarea>
+      </div>
+      <br>
+      <input type="submit" class="btn btn-success" value="Envoyer" name="validerEnvoiNational">
+    </form>
+
+    {% endif %}
 
     <!-- Si variable demande est null : Erreur la demande n'existe pas -->
     {% else %}

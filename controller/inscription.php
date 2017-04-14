@@ -36,13 +36,20 @@ $agenceModel = new AgenceModel($connexion);
           sha1($_POST['mdp']),
           $_POST['agence']
         );
+        //On stock l'utilisateur dans la variable de session pour qu'il soit connecté
         $_SESSION['user'] = $userModel->get_user($_POST['email']);
+
+
+        //On souhaite afficher la liste des postits par défaut sur la page d'accueil
+        require_once("../model/postitModel.php");
+        $postitModel = new PostitModel($connexion);
 
         $template = $twig -> loadTemplate ('layout.html.twig');
         echo $template -> render(
           array(
             'confirmInscription'=>$confirmInscription,
             'SESSION'=>$_SESSION,
+            'postits'=>$postitModel->get_postits(),
           ));
       }
       //Dans le cas inverse on renvoie vers la page d'inscription avec erreur

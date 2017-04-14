@@ -18,6 +18,8 @@ class ThemeModel
 // --------------------------------------------------------------------------
 // -----------------METHODES DE GESTION DES THEMES---------------------------
 // --------------------------------------------------------------------------
+
+  //ajoute un thème
   function add_theme($libelle)
   {
 
@@ -33,7 +35,7 @@ class ThemeModel
     return "Le nouveau thème a bien été ajouté";
   }
 
-
+  //retourne la liste des themes
   function get_themes()
   {
 
@@ -48,6 +50,7 @@ class ThemeModel
     return $requete->fetchAll();
   }
 
+  //supprime un thème
   function delete_theme($id)
   {
 

@@ -1,14 +1,23 @@
 {% extends 'layout.html.twig' %}
 
 {% block navbar %}
-    <a class="col-md-2 col-xs-3 home" href="adminHome.php"><h3>Fil Réseau</h3></a>
-    <div class="col-md-7 col-xs-5">
+    <a class="col-xs-4 col-lg-2 home" href="adminHome.php"><h3>Fil Réseau</h3></a>
+
+    {% if SESSION.user is not null %}
+    <div class="col-xs-4 col-lg-7">
       <ul class="nav nav-pills">
         <li role="presentation" class="navElement"><a href="adminHome.php">Planning des permanences</a></li>
         <li role="presentation" class="navElement"><a href="adminGestion.php">Gestion des tables</a></li>
         <li role="presentation" class="navElement"><a href="adminHome.php">Statistiques</a></li>
       </ul>
     </div>
+
+    <div class="col-xs-4 col-lg-3">
+      <p>Connecté en tant que {{SESSION.user.prenom}}</p>
+      <a href="deconnexion.php">Se déconnecter</a>
+    </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block body %}

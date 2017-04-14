@@ -8,6 +8,16 @@ $connexion = dbconnect();
 
 include("../model/empecherRepetitionPOST.php");
 
+
+//--------Verification du rôle utilisateur.
+//On ne peut accéder à la page que si on est admin
+if (empty($_SESSION['user']['role']) || $_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2)
+{
+    header('Location:index.php');
+}
+//--------Fin de la vérification du rôle-------------
+
+
 //On utilisera le modèle des utilisateurs pour récupérer la liste des experts
 require_once("../model/userModel.php");
 $userModel = new userModel($connexion);

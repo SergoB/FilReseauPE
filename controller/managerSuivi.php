@@ -8,6 +8,14 @@ $connexion = dbconnect();
 //On évite que la demande soit envoyée 2 fois en cas d'actualisation
 include ('../model/empecherRepetitionPOST.php');
 
+//----------Verification du rôle utilisateur. 
+//On ne peut accéder à la page que si on est manager ou admin
+if (empty($_SESSION['user']['role']) || $_SESSION['user']['role'] == 2)
+{
+    header('Location:index.php');
+}
+//--------Fin de la vérification du rôle-------------
+
 //On va ici avoir besoin des méthodes de gestion des DEMANDES
 require_once("../model/demandeModel.php");
 $demandeModel = new DemandeModel($connexion);

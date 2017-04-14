@@ -9,7 +9,10 @@ if (isset($_POST['validConnexion']))
     echo $template -> render(
       array(
         'SESSION'=>$_SESSION,
-        'erreurConnect'=>"Identifiant ou mot de passe incorrect"
+        'GET'=>$_GET,
+        'erreurConnect'=>"Identifiant ou mot de passe incorrect",
+        'postits'=>$postitModel->get_postits(),
+        'postit'=>$postitModel->get_postit($id_postit),
       ));
     }
     //Sinon, les informations saisies correspondent, on redirige vers l'espace adéquat
@@ -40,14 +43,13 @@ if (isset($_POST['validConnexion']))
   //Par défaut si la personne n'essaie pas de se connecter
   else
   {
-    //On souhaite afficher la liste des postits pour les utilisateurs hors connexion
-    require_once("../model/postitModel.php");
-    $postitModel = new PostitModel($connexion);
 
     $template = $twig -> loadTemplate ('layout.html.twig');
     echo $template -> render(
       array(
         'SESSION'=>$_SESSION,
+        'GET'=>$_GET,
         'postits'=>$postitModel->get_postits(),
+        'postit'=>$postitModel->get_postit($id_postit),
       ));
   }
