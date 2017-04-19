@@ -10,10 +10,54 @@
 
 
 <body>
+  <div class="row">
+    <div class="logo col-lg-3 col-md-4 col-sm-4 col-xs-4">
+      {% if SESSION.user.role == 1 %}
+      <a href="managerHome.php">
+        <img class="img-responsive" src="../img/logoPE.png" alt="logoPoleEmploi" width="50%">
+      </a>
+      {% elseif SESSION.user.role == 2 %}
+      <a href="expertHome.php">
+        <img class="img-responsive" src="../img/logoPE.png" alt="logoPoleEmploi" width="50%">
+      </a>
+      {% elseif SESSION.user.role == 3 %}
+      <a href="adminHome.php">
+        <img class="img-responsive" src="../img/logoPE.png" alt="logoPoleEmploi" width="50%">
+      </a>
+      {% else %}
+      <a href="index.php">
+        <img class="img-responsive" src="../img/logoPE.png" alt="logoPoleEmploi" width="50%">
+      </a>
+      {% endif %}
+    </div>
+
+    <div class="header-titre col-lg-6 col-md-5 col-sm-4 col-xs-4">
+
+      <h2>Fil Reseau</h2>
+      <h4>Outil de Gestion des Demandes</h4>
+      <hr>
+    </div>
+
+
+    {% if SESSION.user is null %}
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 blocUser">
+      {% include 'connexion.html.twig' %}
+    </div>
+    {% if erreurConnect is not null %}
+    <p>{{erreurConnect}}</p>
+    {% endif %}
+
+    {% else %}
+    <div class="col-lg-3 connected">
+      <h4>Connecté en tant que {{SESSION.user.prenom}}</h4>
+      <a href="deconnexion.php">Se déconnecter</a>
+    </div>
+    {% endif %}
+  </div>
+
   <div class="row container-fluid navbar">
     {% block navbar %}
-    <a class="col-xs-4 col-lg-2 home" href="index.php"><h3>Fil Réseau</h3></a>
-    <div class="col-xs-4  col-lg-6">
+    <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-10">
       <ul class="nav nav-pills">
         {% if SESSION.user.role == 1 %}
         <li role="presentation" class="navElement"><a href="managerHome.php">Espace utilisateur</a></li>
@@ -26,22 +70,7 @@
         <li role="presentation" class="navElement"><a href="contact.php">Contacter un administrateur</a></li>
       </ul>
     </div>
-    {% if SESSION.user is null %}
-    <div class="col-xs-4 col-lg-4 blocUser">
-      {% include 'connexion.html.twig' %}
-    </div>
-    {% if erreurConnect is not null %}
-    <p>{{erreurConnect}}</p>
-    {% endif %}
-
-    {% else %}
-    <div class="col-lg-3">
-      <p>Connecté en tant que {{SESSION.user.prenom}}</p>
-      <a href="deconnexion.php">Se déconnecter</a>
-    </div>
-    {% endif %}
     {% endblock %}
-
   </div>
 
   <section class="container">
@@ -65,33 +94,33 @@
     {% else %}
     <div class="actualite">
       <div class="row">
-          <div class="col-xs-6">
-            {% for postit in postits %}
-            <ul>
-              <li><a href="index.php?id_postit={{postit.id}}&amp;numPage={{GET.numPage}}">{{postit.titre}}</a></li>
-            </ul>
-            {% endfor %}
-          </div>
+        <div class="col-xs-6">
+          {% for postit in postits %}
+          <ul>
+            <li><a href="index.php?id_postit={{postit.id}}&amp;numPage={{GET.numPage}}">{{postit.titre}}</a></li>
+          </ul>
+          {% endfor %}
+        </div>
 
-          {% if GET.id_postit is not null %}
-          <div class="col-xs-6">
-            <h4>{{postit.titre}} :</h4>
-            <p><i>Publié par {{postit.expert}} le {{postit.date|date('d/m/Y')}}</i></p>
-            <p><b>Question :</b> {{postit.questionType}}</p>
-            <p><b>Reponse :</b> {{postit.reponseType}}</p>
-          </div>
-          {% endif %}
+        {% if GET.id_postit is not null %}
+        <div class="col-xs-6">
+          <h4>{{postit.titre}} :</h4>
+          <p><i>Publié par {{postit.expert}} le {{postit.date|date('d/m/Y')}}</i></p>
+          <p><b>Question :</b> {{postit.questionType}}</p>
+          <p><b>Reponse :</b> {{postit.reponseType}}</p>
+        </div>
+        {% endif %}
       </div>
 
-        <ul class="pagination row">
-          {% for i in 1..nbPage %}
-            {% if GET.numPage == i %}
-            <li class="active"><a href="index.php?numPage={{i}}">{{i}}</a></li>
-            {% else %}
-            <li><a href="index.php?numPage={{i}}">{{i}}</a></li>
-            {% endif %}
-          {% endfor %}
-        </ul>
+      <ul class="pagination row">
+        {% for i in 1..nbPage %}
+        {% if GET.numPage == i %}
+        <li class="active"><a href="index.php?numPage={{i}}">{{i}}</a></li>
+        {% else %}
+        <li><a href="index.php?numPage={{i}}">{{i}}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
 
     </div>
 

@@ -1,169 +1,161 @@
 {% extends 'layout.html.twig' %}
 
 {% block navbar %}
-    <a class="col-xs-4 col-lg-2 home" href="adminHome.php"><h3>Fil Réseau</h3></a>
 
-    {% if SESSION.user is not null %}
-    <div class="col-xs-4 col-lg-7">
-      <ul class="nav nav-pills">
-        <li role="presentation" class="navElement"><a href="adminHome.php">Planning des permanences</a></li>
-        <li role="presentation" class="navElement"><a href="adminGestion.php">Gestion des tables</a></li>
-        <li role="presentation" class="navElement"><a href="adminHome.php">Statistiques</a></li>
-      </ul>
-    </div>
-
-    <div class="col-xs-4 col-lg-3">
-      <p>Connecté en tant que {{SESSION.user.prenom}}</p>
-      <a href="deconnexion.php">Se déconnecter</a>
-    </div>
-    {% endif %}
+<div class="col-lg-offset-3 col-lg-7">
+  <ul class="nav nav-pills">
+    <li role="presentation" class="navElement"><a href="adminHome.php">Planning des permanences</a></li>
+    <li role="presentation" class="navElement"><a href="adminGestion.php">Gestion des tables</a></li>
+    <li role="presentation" class="navElement"><a href="adminHome.php">Statistiques</a></li>
+  </ul>
+</div>
 
 {% endblock %}
 
 {% block body %}
 
-  <div class="intro">
-    <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
-    <p>Mettez à jour le planning des permanences chaque semaine, ajoutez, modifiez ou supprimez les champs des différentes tables, consultez et exportez les statistiques de l'outil...</p>
+<div class="intro">
+  <h3>Bienvenue sur Fil Réseau : Votre outil de gestion des demandes.</h3>
+  <p>Mettez à jour le planning des permanences chaque semaine, ajoutez, modifiez ou supprimez les champs des différentes tables, consultez et exportez les statistiques de l'outil...</p>
+</div>
+
+<h3>Gestion du planning : Semaine n°{{'now'|date('W')}}</h3>
+<table class="planning table table-bordered">
+  <tr>
+    <td><b>Disponibilité</b></td>
+    <td>Lundi</td>
+    <td>Mardi</td>
+    <td>Mercredi</td>
+    <td>Jeudi</td>
+    <td>Vendredi</td>
+  </tr>
+
+  <tr>
+    <td>Matin (9h-12h)</td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+    <td>
+      {% for expert in expertsAvecPermanences %}
+      {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+      <li>{{expert.prenom}} {{expert.nom}}</li>
+      {% endif %}
+      {% endfor %}
+    </td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Après-midi (14h-17h)</td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+    <td>
+      {% for expert in expertsAvecPermanences %}
+      {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+      <li>{{expert.prenom}} {{expert.nom}}</li>
+      {% endif %}
+      {% endfor %}
+    </td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+    <td>
+      <ul>
+        {% for expert in expertsAvecPermanences %}
+        {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+        <li>{{expert.prenom}} {{expert.nom}}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<h4>Ajouter une permanence : </h4>
+<form class="form-inline" action="adminHome.php" method="post">
+
+  <div class="input-group">
+    <label for="">Date : </label>
+    <input class="form-control" type="date" name="datePerm" required="True">
   </div>
 
-  <h3>Gestion du planning : Semaine n°{{'now'|date('W')}}</h3>
-  <table class="planning table table-bordered">
-    <tr>
-      <td><b>Disponibilité</b></td>
-      <td>Lundi</td>
-      <td>Mardi</td>
-      <td>Mercredi</td>
-      <td>Jeudi</td>
-      <td>Vendredi</td>
-    </tr>
+  <div class="input-group">
+    <label for=""> Expert : </label>
+    <select class="form-control" name="id_expert" required="True">
+      {% for expert in experts %}
+      <option value="{{expert.id}}">{{expert.prenom}} {{expert.nom}}</option>
+      {% endfor %}
+    </select>
+  </div>
 
-    <tr>
-      <td>Matin (9h-12h)</td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-      <td>
-        {% for expert in expertsAvecPermanences %}
-          {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-            <li>{{expert.prenom}} {{expert.nom}}</li>
-          {% endif %}
-        {% endfor %}
-      </td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
+  <div class="input-group">
+    <label for=""> Disponibilité : </label>
+    <select class="form-control" name="dispo" required="True">
+      <option value="matin">Matin</option>
+      <option value="après-midi">Après-midi</option>
+      <option value="journée">Journée</option>
+    </select>
+  </div>
+  <p>{{confirmAjoutPermanence}}</p>
 
-    <tr>
-      <td>Après-midi (14h-17h)</td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-      <td>
-        {% for expert in expertsAvecPermanences %}
-          {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-            <li>{{expert.prenom}} {{expert.nom}}</li>
-          {% endif %}
-        {% endfor %}
-      </td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-      <td>
-        <ul>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-  </table>
+  <br>
+  <div class="input-group">
+    <input type="submit" class="btn btn-success" name="validerPermanence" value="Enregistrer">
+  </div>
 
-  <h4>Ajouter une permanence : </h4>
-  <form class="form-inline" action="adminHome.php" method="post">
-
-    <div class="input-group">
-      <label for="">Date : </label>
-      <input class="form-control" type="date" name="datePerm" required="True">
-    </div>
-
-    <div class="input-group">
-      <label for=""> Expert : </label>
-      <select class="form-control" name="id_expert" required="True">
-        {% for expert in experts %}
-          <option value="{{expert.id}}">{{expert.prenom}} {{expert.nom}}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <div class="input-group">
-      <label for=""> Disponibilité : </label>
-      <select class="form-control" name="dispo" required="True">
-        <option value="matin">Matin</option>
-        <option value="après-midi">Après-midi</option>
-        <option value="journée">Journée</option>
-      </select>
-    </div>
-    <p>{{confirmAjoutPermanence}}</p>
-
-    <br>
-    <div class="input-group">
-      <input type="submit" class="btn btn-success" name="validerPermanence" value="Enregistrer">
-    </div>
-
-  </form>
+</form>
 {% endblock %}

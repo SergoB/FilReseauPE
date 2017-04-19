@@ -1,10 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block navbar %}
-<a class="col-xs-4 col-lg-2 home" href="managerHome.php"><h3>Fil Réseau</h3></a>
 
-{% if SESSION.user is not null %}
-<div class="col-xs-4 col-lg-7">
+<div class="col-lg-offset-3 col-lg-7">
   <ul class="nav nav-pills">
     <li role="presentation" class="navElement"><a href="managerDemande.php">Nouvelle demande</a></li>
     <li role="presentation" class="navElement"><a href="managerSuivi.php">Mes demandes</a></li>
@@ -12,11 +10,6 @@
   </ul>
 </div>
 
-<div class="col-xs-4 col-lg-3">
-  <p>Connecté en tant que {{SESSION.user.prenom}}</p>
-  <a href="deconnexion.php">Se déconnecter</a>
-</div>
-{% endif %}
 {% endblock %}
 
 {% block body %}

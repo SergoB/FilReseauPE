@@ -1,8 +1,17 @@
+/*=====CSS du header=========*/
+.header-titre{
+  text-align: center;
+}
+
+.blocUser{
+  float: right;
+  margin-top:1%;
+}
+
 .navbar{
   font-size: 18px;
   background-color: #337ab7;
   color: white;
-  h
 }
 
 .navbar a{
@@ -10,21 +19,19 @@
   text-decoration: none;
 }
 
+
 .navElement{
   margin-top: 1%;
 }
 
-.blocUser{
-  float: right;
-  margin-top:1%;
-}
-.blocUser a:hover, .home:hover{
-  color:oldlace;
+.connected{
+  margin-top:2%;
 }
 
 .navElement a:hover{
   color:black;
 }
+/*=====FIN CSS du header=========*/
 
 
 .headerDemande{
@@ -37,7 +44,6 @@
   padding: 1%;
 }
 
-
 .demande h4{
   color: grey;
 }
@@ -46,6 +52,7 @@
   box-shadow:1px 1px 8px #888888;
   padding:1%;
 }
+
 .corpsDemande {
   margin-top:2%;
   box-shadow: 2px 2px 10px #888888;
@@ -55,7 +62,6 @@
   border: ridge;
   padding: 1%;
 }
-
 
 .intro{
   margin-bottom:2%;

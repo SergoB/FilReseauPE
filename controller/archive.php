@@ -39,7 +39,7 @@ if (!empty($_POST['validerRecherche']))
       'SESSION'=>$_SESSION,
       'POST'=>$_POST,
       'GET'=>$_GET,
-      'themes'=>$themeModel->get_themes(),
+      'themes'=>$themeModel->get_themes(1,1000),
       'demandesFiltrees'=>$demandeModel->recherche_demandes($_POST['id_demande'],$_POST['keyword'], $_POST['theme'], $_GET['numPage'], 10),
       'nbPages'=>$demandeModel->countPage_demandesFiltre(10, $_POST['id_demande'],$_POST['keyword'], $_POST['theme']),
       ));
@@ -76,7 +76,7 @@ else
       'SESSION'=>$_SESSION,
       'POST'=>$_POST,
       'GET'=>$_GET,
-      'themes'=>$themeModel->get_themes(),
+      'themes'=>$themeModel->get_themes(1,1000),
       'demandesAll'=> $demandesTraitees,
       'nbPageDemandes'=> $nbPages,
     ));
