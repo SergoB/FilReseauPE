@@ -123,25 +123,6 @@ class UserModel
       }
     }
 
-    //Retourne la liste des utilisateurs selon un role donné en paramètre
-    function get_users_byRole($role)
-    {
-      $users = $this->db->prepare
-      ('
-      SELECT utilisateur.id, utilisateur.nom, prenom, email, agence.nom as nomAgence, departement as departementAgence
-      FROM utilisateur
-      LEFT JOIN role_user ON utilisateur.role = role_user.id
-      LEFT JOIN agence ON utilisateur.id_agence = agence.id
-      WHERE role_user.libelle = :role
-      ');
-
-      $users->execute(
-        array(
-        'role'=>$role,
-        ));
-
-      return $users->fetchAll();
-    }
 
     //Fixe un rôle à un utilisateur
     function set_role($user_id,$role)
@@ -181,6 +162,56 @@ class UserModel
 
       return "Le role de l'utilisateur n°".$user_id. " a été supprimé avec succès." ;
     }
+
+    //Retourne la liste des utilisateurs selon un role donné en paramètre
+    function get_users_byRole($role, $numPage, $nbparPage)
+    {
+
+      //On va afficher les 10 premieres utilisateurs puis  les autres selon le numéro de la page
+      if ($numPage >= 1)
+      {
+        $firstResult = ($numPage - 1) * $nbparPage;
+      }
+      else
+      {
+        $firstResult = 0;
+      }
+
+      $users = $this->db->prepare
+      ('
+      SELECT utilisateur.id, utilisateur.nom, prenom, email, agence.nom as nomAgence, departement as departementAgence
+      FROM utilisateur
+      LEFT JOIN role_user ON utilisateur.role = role_user.id
+      LEFT JOIN agence ON utilisateur.id_agence = agence.id
+      WHERE role_user.libelle = :role
+      LIMIT '.$firstResult. ',' . $nbparPage
+      );
+
+      $users->execute(
+        array(
+          'role'=>$role,
+        ));
+
+        return $users->fetchAll();
+      }
+
+      //retourne le nombre de pages pour les utilisateurs d'un role
+      function count_nbPage_users_byRole($role,$nbparPage)
+      {
+        $requete = $this->db->prepare
+        ('
+          SELECT count(*) resultat
+          FROM utilisateur
+          JOIN role_user ON utilisateur.role = role_user.id
+          WHERE role_user.libelle = ?
+        ');
+
+        $requete->execute(array($role));
+
+        $nbUsers = $requete->fetch()['resultat'];
+
+        return ceil($nbUsers/$nbparPage);
+      }
 
 
     // --------------------------------------------------------------------------

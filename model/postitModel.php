@@ -42,18 +42,51 @@ class PostitModel
   }
 
   //liste des post-its avec les infos concernant l'auteur expert
-  function get_postits()
+  function get_postits($numPage,$nbparPage)
   {
+    //On va afficher les 5 premiers postits puis  les autres selon le numéro de la page
+    if ($numPage >= 1)
+    {
+      $firstResult = ($numPage - 1) * $nbparPage;
+    }
+    else
+    {
+      $firstResult = 0;
+    }
+
     $postits = $this->db->prepare
     ('
       SELECT postit.id, titre, questionType, reponseType, date, CONCAT(utilisateur.prenom," ", utilisateur.nom) as expert
       FROM postit
       JOIN utilisateur ON postit.id_expert = utilisateur.id
-    ');
+      LIMIT '.$firstResult. ',' . $nbparPage
+     );
 
     $postits->execute();
 
     return $postits->fetchAll();
+  }
+
+  //Retourne le nombre total de post-its
+  function count_postits()
+  {
+    $requete = $this->db->prepare
+    ('
+      SELECT count(*) resultat
+      FROM postit
+    ');
+
+    $requete->execute();
+
+    return $requete->fetch()['resultat'];
+  }
+
+  //Retourne le nombre de pages d'affichage selon un nombre d'élément par page donné
+  function count_nbPage($nbparPage)
+  {
+    $nbPostits = $this->count_postits();
+
+    return ceil($nbPostits/$nbparPage);
   }
 
   // Retourne un post-it et ses informations selon son ID

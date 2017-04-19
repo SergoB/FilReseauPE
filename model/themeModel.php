@@ -35,35 +35,63 @@ class ThemeModel
     return "Le nouveau thème a bien été ajouté";
   }
 
-  //retourne la liste des themes
-  function get_themes()
+
+  //supprime un thème
+  function delete_theme($id)
   {
+
+    $requete = $this->db->prepare
+    ('
+    DELETE FROM theme
+    WHERE id=?
+    ');
+
+    $requete->execute(array($id));
+    $requete->closeCursor();
+
+    return "Le thème a bien été supprimé.";
+  }
+
+
+  //retourne la liste des themes
+  function get_themes($numPage, $nbparPage)
+  {
+    //On va afficher les 10 premiers themes puis  les autres selon le numéro de la page
+    if ($numPage >= 1)
+    {
+      $firstResult = ($numPage - 1) * $nbparPage;
+    }
+    else
+    {
+      $firstResult = 0;
+    }
 
     $requete = $this->db->prepare
     ('
       SELECT *
       FROM theme
-    ');
+      LIMIT '.$firstResult. ',' . $nbparPage
+    );
 
     $requete->execute();
 
     return $requete->fetchAll();
   }
 
-  //supprime un thème
-  function delete_theme($id)
+  //retourne le nombre de pages pour les themes
+  function count_nbPage_themes($nbparPage)
   {
+    $requete = $this->db->prepare
+    ('
+      SELECT count(*) resultat
+      FROM theme
+    ');
 
-      $requete = $this->db->prepare
-      ('
-        DELETE FROM theme
-        WHERE id=?
-      ');
+    $requete->execute();
 
-      $requete->execute(array($id));
-      $requete->closeCursor();
+    $nbThemes = $requete->fetch()['resultat'];
 
-      return "Le thème a bien été supprimé.";
+    return ceil($nbThemes/$nbparPage);
   }
 
   // --------------------------------------------------------------------------

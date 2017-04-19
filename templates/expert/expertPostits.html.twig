@@ -34,55 +34,15 @@
     {% endfor %}
   </table>
 
-  <h3>Rechercher une demande :</h3>
-
-  <form class="form-inline" action="expertPostits.php" method="post">
-    <input type="text" name="id_demande" class="form-control" size="25" placeholder="Recherche par n° de demande">
-
-    <input type="text" name="keyword" class="form-control" placeholder="Recherche par mots clés">
-
-    <select class="form-control" name="theme">
-      <option value="indifferent">Tous les thèmes</option>
-      {% for theme in themes %}
-      <option value="{{theme.id}}">{{theme.libelle}}</option>
-      {% endfor %}
-    </select>
-
-    <input type="submit" class="btn btn-default" name="validerRecherche" value="Rechercher">
-  </form>
-
-  <hr>
-
-  {% if POST.validerRecherche is not empty %}
-  <h2>Résultat de la recherche :</h2>
-    {% if demandesRecherches is empty %}
-      <h4>Aucun réstultat ne correspond à votre recherche</h4>
+  <ul class="pagination row">
+    {% for i in 1..nbPage %}
+    {% if GET.numPage == i %}
+    <li class="active"><a href="expertPostits.php?numPage={{i}}">{{i}}</a></li>
     {% else %}
-    <table class="table table-bordered">
-      <tr class="bg-primary">
-        <td>N°</td>
-        <td>Theme</td>
-        <td>Etat</td>
-        <td>Date</td>
-        <td>Actions</td>
-      </tr>
-
-      {% for demande in demandesRecherches %}
-      <tr>
-        <td>{{demande.id}}</td>
-        <td>{{demande.libelleTheme}}</td>
-        <td>{{demande.etatDemande}}</td>
-        <td>{{demande.datePost|date('d/m/Y à H:i')}}</td>
-        <td>
-          <a href="expertDemande.php?id_demande={{demande.id}}">
-            <button type="button" class="btn btn-success" name="button">Consulter</button>
-          </a>
-        </td>
-      </tr>
-      {% endfor %}
-
-    </table>
+    <li><a href="expertPostits.php?numPage={{i}}">{{i}}</a></li>
     {% endif %}
-  {% endif %}
+    {% endfor %}
+  </ul>
+
 </section>
 {% endblock %}

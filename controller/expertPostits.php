@@ -12,46 +12,28 @@ include ('../model/empecherRepetitionPOST.php');
 //On ne peut accéder à la page que si on est expert ou admin
 if (empty($_SESSION['user']['role']) || $_SESSION['user']['role'] == 1)
 {
-    header('Location:index.php');
+  header('Location:index.php');
 }
 //--------Fin de la vérification du rôle-------------
 
-
-//On va ici avoir besoin des méthodes de gestion des DEMANDES
-require_once("../model/demandeModel.php");
-$demandeModel = new DemandeModel($connexion);
 
 //On aura besoin de la liste des post-its
 require_once("../model/postitModel.php");
 $postitModel = new PostitModel($connexion);
 
 
-//On va ici avoir besoin des méthodes de gestion des THEMES
-require_once("../model/themeModel.php");
-$themeModel = new ThemeModel($connexion);
+//On est sur la page 1 par défaut
+if (empty($_GET['numPage']))
+{
+  $_GET['numPage'] = 1;
+}
 
-if (!empty($_POST['validerRecherche']))
-{
-  $template = $twig -> loadTemplate ('expert/expertPostits.html.twig');
-  echo $template -> render(
-    array(
-      'SESSION'=>$_SESSION,
-      'POST'=>$_POST,
-      'GET'=>$_GET,
-      'themes'=>$themeModel->get_themes(),
-      'postits'=> $postitModel->get_postits(),
-      'demandesRecherches'=>$demandeModel->recherche_demandes($_POST['id_demande'],$_POST['keyword'], $_POST['theme']),
-    ));
-}
-else
-{
-  $template = $twig -> loadTemplate ('expert/expertPostits.html.twig');
-  echo $template -> render(
-    array(
-      'SESSION'=>$_SESSION,
-      'POST'=>$_POST,
-      'GET'=>$_GET,
-      'themes'=>$themeModel->get_themes(),
-      'postits'=> $postitModel->get_postits(),
-    ));
-}
+$template = $twig -> loadTemplate ('expert/expertPostits.html.twig');
+echo $template -> render(
+  array(
+    'SESSION'=>$_SESSION,
+    'POST'=>$_POST,
+    'GET'=>$_GET,
+    'postits'=> $postitModel->get_postits($_GET['numPage'], 10),
+    'nbPage'=>$postitModel->count_nbPage(10),
+  ));

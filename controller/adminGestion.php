@@ -32,7 +32,7 @@ $themeModel = new ThemeModel($connexion);
     $confirmAjoutTheme=$themeModel->add_theme($_POST['libelleTheme']);
   }
   else {
-    $confirmAjoutTheme=""; //On n'affiche le message de confirmation que si un thème est ajouté.
+    $confirmAjoutTheme=""; //On affiche le message de confirmation que si un thème est ajouté.
   }
 
   //Traitement de la requête de suppression d'un thème
@@ -127,6 +127,11 @@ $agenceModel = new AgenceModel($connexion);
 //------------------FIN GESTION AGENCES------------------------------
 //--------------------------------------------------------------------
 
+//Gestion de la pagintion : Si le numero de la page n'est pas précisé, on est sur la page 1
+if (empty($_GET['numPage']))
+{
+  $_GET['numPage']=1;
+}
 
 $template = $twig -> loadTemplate ('admin/adminGestion.html.twig');
 echo $template -> render(
@@ -143,9 +148,13 @@ echo $template -> render(
     'confirmSuprManager'=> $confirmSuprManager,
     'confirmAjoutExpert'=> $confirmAjoutExpert,
     'confirmSuprExpert'=> $confirmSuprExpert,
-    'themes'=> $themeModel->get_themes(),
-    'agences'=> $agenceModel->get_agences(),
-    'managers'=> $userModel-> get_users_byRole('Manager'),
-    'experts'=> $userModel-> get_users_byRole('Expert'),
+    'themes'=> $themeModel->get_themes($_GET['numPage'],10),
+    'nbPagesThemes'=> $themeModel->count_nbPage_themes(10),
+    'agences'=> $agenceModel->get_agences($_GET['numPage'],10),
+    'nbPagesAgences'=> $agenceModel->count_nbPage_agences(10),
+    'managers'=> $userModel-> get_users_byRole('Manager',$_GET['numPage'],10),
+    'nbPagesManagers'=> $userModel->count_nbPage_users_byRole('Manager',10),
+    'experts'=> $userModel-> get_users_byRole('Expert', $_GET['numPage'],10),
+    'nbPagesExperts'=> $userModel->count_nbPage_users_byRole('Expert',10),
     'users' => $userModel-> get_users(),
   ));

@@ -29,7 +29,7 @@
 
 
 <div>
-  <h3>Demandes en attente de résolution</h3>
+  <h3>Demandes en attente de résolution </h3>
   {% if demandes is empty %}
   <p class="alert alert-success">Aucune demande en attente de résolution</p>
   {% else %}
@@ -50,6 +50,15 @@
     </tr>
     {% endfor %}
   </table>
+  <ul class="pagination row">
+    {% for i in 1..nbPageDemandes %}
+      {% if GET.numPage == i %}
+      <li class="active"><a href="expertHome.php?numPage={{i}}">{{i}}</a></li>
+      {% else %}
+      <li><a href="expertHome.php?numPage={{i}}">{{i}}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
   {% endif %}
 </div>
 

@@ -49,7 +49,7 @@ $template = $twig -> loadTemplate ('admin/adminHome.html.twig');
 echo $template -> render(
   array(
     'SESSION'=>$_SESSION,
-    'experts'=> $userModel->get_users_byRole("Expert"),
+    'experts'=> $userModel->get_users_byRole("Expert",1, 1000),
     'confirmAjoutPermanence'=>$confirmAjoutPermanence,
     'permanences'=>$permanenceModel->get_permanences(),
     'expertsAvecPermanences'=>$permanenceModel->get_experts_withPermanences(),

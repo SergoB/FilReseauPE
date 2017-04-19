@@ -34,6 +34,16 @@
       {% endfor %}
 
     </table>
+
+    <ul class="pagination row">
+      {% for i in 1..nbPagesThemes %}
+      {% if GET.numPage == i %}
+      <li class="active"><a href="adminGestion.php?numPage={{i}}">{{i}}</a></li>
+      {% else %}
+      <li><a href="adminGestion.php?numPage={{i}}">{{i}}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
     {% endif %}
 
 </div>

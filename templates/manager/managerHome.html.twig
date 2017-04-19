@@ -1,142 +1,182 @@
 {% extends 'layout.html.twig' %}
 
 {% block navbar %}
-    <a class="col-xs-4 col-lg-2 home" href="managerHome.php"><h3>Fil Réseau</h3></a>
+<a class="col-xs-4 col-lg-2 home" href="managerHome.php"><h3>Fil Réseau</h3></a>
 
-    {% if SESSION.user is not null %}
-    <div class="col-xs-4 col-lg-7">
-      <ul class="nav nav-pills">
-        <li role="presentation" class="navElement"><a href="managerDemande.php">Nouvelle demande</a></li>
-        <li role="presentation" class="navElement"><a href="managerSuivi.php">Mes demandes</a></li>
-        <li role="presentation" class="navElement"><a href="bibliotheque.php">Archives</a></li>
-        <li role="presentation" class="navElement"><a href="managerHome.php">Planning des permanences</a></li>
-      </ul>
-    </div>
+{% if SESSION.user is not null %}
+<div class="col-xs-4 col-lg-7">
+  <ul class="nav nav-pills">
+    <li role="presentation" class="navElement"><a href="managerDemande.php">Nouvelle demande</a></li>
+    <li role="presentation" class="navElement"><a href="managerSuivi.php">Mes demandes</a></li>
+    <li role="presentation" class="navElement"><a href="managerHome.php">Planning des permanences</a></li>
+  </ul>
+</div>
 
-    <div class="col-xs-4 col-lg-3">
-      <p>Connecté en tant que {{SESSION.user.prenom}}</p>
-      <a href="deconnexion.php">Se déconnecter</a>
-    </div>
-    {% endif %}
+<div class="col-xs-4 col-lg-3">
+  <p>Connecté en tant que {{SESSION.user.prenom}}</p>
+  <a href="deconnexion.php">Se déconnecter</a>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block body %}
 <section class="container">
 
+  <h3>Fil d'actualité : </h3>
+
+
+  {% if postits is empty %}
+  <p class="alert alert-warning">Aucun post-it n'a été ajouté pour le moment</p>
+
+  {% else %}
+  <div class="actualite">
+    <div class="row">
+      <div class="col-xs-6">
+        {% for postit in postits %}
+        <ul>
+          <li><a href="managerHome.php?id_postit={{postit.id}}&amp;numPage={{GET.numPage}}">{{postit.titre}}</a></li>
+        </ul>
+        {% endfor %}
+      </div>
+
+      {% if GET.id_postit is not null %}
+      <div class="col-xs-6">
+        <h4>{{postit.titre}} :</h4>
+        <p><i>Publié par {{postit.expert}} le {{postit.date|date('d/m/Y')}}</i></p>
+        <p><b>Question :</b> {{postit.questionType}}</p>
+        <p><b>Reponse :</b> {{postit.reponseType}}</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <ul class="pagination row">
+      {% for i in 1..nbPage %}
+      {% if GET.numPage == i %}
+      <li class="active"><a href="managerHome.php?numPage={{i}}">{{i}}</a></li>
+      {% else %}
+      <li><a href="managerHome.php?numPage={{i}}">{{i}}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+
+
+  {% endif %}
+
   <p>Votre demande n'apparait pas dans le fil d'actualité ? Faites appel à l'un de nos experts. <a href="managerDemande.php"><button type="button" class="btn btn-primary" name="button">Nouvelle Demande</button></a>
 
-  <div class="planning">
-    <h3>Planning des permanences : </h3>
-    <p class="alert alert-warning">
-      Votre demande est urgente ?
-      Contactez par téléphone l'un de nos experts en permanence.
-    </p>
+    <div class="planning">
+      <h3>Planning des permanences : </h3>
+      <p class="alert alert-warning">
+        Votre demande est urgente ?
+        Contactez par téléphone l'un de nos experts en permanence.
+      </p>
 
-    <table class="planning table table-bordered">
-      <tr>
-        <td><b>Disponibilité</b></td>
-        <td>Lundi</td>
-        <td>Mardi</td>
-        <td>Mercredi</td>
-        <td>Jeudi</td>
-        <td>Vendredi</td>
-      </tr>
+      <table class="planning table table-bordered">
+        <tr>
+          <td><b>Disponibilité</b></td>
+          <td>Lundi</td>
+          <td>Mardi</td>
+          <td>Mercredi</td>
+          <td>Jeudi</td>
+          <td>Vendredi</td>
+        </tr>
 
-      <tr>
-        <td>Matin (9h-12h)</td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
+        <tr>
+          <td>Matin (9h-12h)</td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
               {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
+              <li>{{expert.prenom}} {{expert.nom}}</li>
               {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
+              {% endfor %}
+            </ul>
+          </td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
               {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
+              <li>{{expert.prenom}} {{expert.nom}}</li>
               {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-        <td>
-          {% for expert in expertsAvecPermanences %}
+              {% endfor %}
+            </ul>
+          </td>
+          <td>
+            {% for expert in expertsAvecPermanences %}
             {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-              <li>{{expert.prenom}} {{expert.nom}}</li>
+            <li>{{expert.prenom}} {{expert.nom}}</li>
             {% endif %}
-          {% endfor %}
-        </td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
+            {% endfor %}
+          </td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
               {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
-              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-      </tr>
-
-      <tr>
-        <td>Après-midi (14h-17h)</td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
-              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
-              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-        <td>
-          {% for expert in expertsAvecPermanences %}
-            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
               <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'matin' or expert.disponibilite == 'journée') %}
+              <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Après-midi (14h-17h)</td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 1  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+              <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
+              {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 2  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+              <li>{{expert.prenom}} {{expert.nom}}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </td>
+          <td>
+            {% for expert in expertsAvecPermanences %}
+            {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 3  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
+            <li>{{expert.prenom}} {{expert.nom}}</li>
             {% endif %}
-          {% endfor %}
-        </td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
+            {% endfor %}
+          </td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
               {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 4  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
+              <li>{{expert.prenom}} {{expert.nom}}</li>
               {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-        <td>
-          <ul>
-            {% for expert in expertsAvecPermanences %}
+              {% endfor %}
+            </ul>
+          </td>
+          <td>
+            <ul>
+              {% for expert in expertsAvecPermanences %}
               {% if expert.datePerm|date('W') == 'now'|date('W') and expert.datePerm|date('w') == 5  and (expert.disponibilite == 'après-midi' or expert.disponibilite == 'journée') %}
-                <li>{{expert.prenom}} {{expert.nom}}</li>
+              <li>{{expert.prenom}} {{expert.nom}}</li>
               {% endif %}
-            {% endfor %}
-          </ul>
-        </td>
-      </tr>
-    </table>
-  </div>
-</section>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </section>
 
 {% endblock %}

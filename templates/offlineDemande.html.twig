@@ -1,0 +1,63 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block body %}
+
+<section class="demande">
+  {% if demande is not empty %}
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>Demande n°{{demande.id}}</h3>
+      </div>
+
+      <div class="col-lg-6">
+        <a href="archive.php"><button type="button" class="btn btn-success" name="button">Retour à la liste des demandes.</button></a>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row headerDemande bg-info">
+      <p class="col-lg-6"><b>Auteur de la demande : </b> {{demande.manager}}</p>
+      <p class="col-lg-6"><b>Adresse mail : </b> {{demande.emailManager}}</p>
+      <p class="col-lg-6"><b>Agence :</b>  {{demande.nomAgence}} ({{demande.departement}})</p>
+      <p class="col-lg-6"><b>Date de la demande : </b> {{demande.datePost|date('d/m/Y à H:i:s')}}</p>
+      <p class="col-lg-6"> <b>Personne concernée : </b> {{demande.personne_concerne}}</p>
+      <p class="col-lg-6"> <b>Identifiant personne concernée : </b> {{demande.id_concerne}}</p>
+    </div>
+
+    <h4><b>Thème : {{demande.libelleTheme}}</b></h4>
+
+    <!-- Affichage message initial -->
+    <div class="corpsDemande row bg-success">
+      <p class="col-lg-12"><i>{{demande.manager}} le {{demande.datePost|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{demande.description}}</p>
+    </div>
+
+    <!-- Affichage de la liste des réponses à cette demande -->
+    {% for reponse in reponses %}
+    {% if reponse.auteurRole == 2 %}
+    <div class="corpsDemande row bg-warning">
+      <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
+    </div>
+    {% elseif reponse.auteurRole == 1 %}
+    <div class="corpsDemande row bg-success">
+      <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
+      <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
+    <!-- Si variable demande est null : Erreur la demande n'existe pas -->
+    {% else %}
+    <p class="alert alert-danger">Erreur : La demande que vous essayez de consulter n'existe pas ou a été supprimée</p>
+    <a href="archive.php"><button type="button" class="btn btn-warning" name="button">Retour à la liste des demandes.</button></a>
+
+    {% endif %}
+
+  </section>
+
+{% endblock %}

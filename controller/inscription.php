@@ -83,6 +83,6 @@ $agenceModel = new AgenceModel($connexion);
     echo $template -> render(
       array(
         'SESSION'=>$_SESSION,
-        'agences'=>$agenceModel->get_agences(),
+        'agences'=>$agenceModel->get_agences(1,1000),
       ));
   }

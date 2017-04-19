@@ -22,5 +22,5 @@ $template = $twig -> loadTemplate ('manager/managerDemande.html.twig');
 echo $template -> render(
   array(
     'SESSION'=>$_SESSION,
-    'themes'=>$themeModel->get_themes(),
+    'themes'=>$themeModel->get_themes(1,1000),
   ));

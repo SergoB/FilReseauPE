@@ -69,9 +69,11 @@
       </form>
 
       {% elseif demande.etatDemande == "Envoyée au national" %}
+       <br>
       <p class="alert alert-warning">Votre demande a été envoyée au national. Vous serez recontacté prochainement.</p>
 
       {% elseif demande.etatDemande == "Traitée" %}
+      <br>
       <p class="alert alert-success">Votre demande a été traitée et validée</p>
     {% endif %}
 

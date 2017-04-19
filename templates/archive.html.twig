@@ -1,0 +1,123 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block body %}
+<section class="container">
+
+  <h2>Trier les demandes :</h2>
+
+  <form class="form" action="archive.php" method="post">
+
+    <div class="input-group col-xs-8">
+      <label>Recherche par n° de demande :</label>
+      <input type="text" name="id_demande" class="form-control" size="25" placeholder="Recherche par n° de demande">
+    </div>
+
+    <div class="input-group col-xs-8">
+      <label>Recherche par mots clés :</label>
+      <input type="text" name="keyword" class="form-control" placeholder="Recherche par mots clés">
+    </div>
+
+    <div class="input-group col-xs-8">
+      <label>Trier par thème : </label>
+      <select class="form-control" name="theme">
+        <option value="indifferent">Tous les thèmes</option>
+        {% for theme in themes %}
+        <option value="{{theme.id}}">{{theme.libelle}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="input-group">
+      <br>
+      <input type="submit" class="btn btn-primary" name="validerRecherche" value="Rechercher">
+    </div>
+  </form>
+
+  <hr>
+
+  {% if POST.validerRecherche is not empty %}
+  <h2>Résultat de la recherche :</h2>
+  {% if demandesFiltrees is empty %}
+  <h4>Aucun réstultat ne correspond à votre recherche</h4>
+  {% else %}
+  <table class="table table-bordered">
+    <tr class="bg-primary">
+      <td>N°</td>
+      <td>Theme</td>
+      <td>Etat</td>
+      <td>Date</td>
+      <td>Actions</td>
+    </tr>
+
+    {% for demande in demandesFiltrees %}
+    {% if demande.etatDemande == "Traitée" %}
+    <tr>
+      <td>{{demande.id}}</td>
+      <td>{{demande.libelleTheme}}</td>
+      <td>{{demande.etatDemande}}</td>
+      <td>{{demande.datePost|date('d/m/Y à H:i')}}</td>
+      <td>
+        <a href="offlineDemande.php?id_demande={{demande.id}}">
+          <button type="button" class="btn btn-success" name="button">Consulter</button>
+        </a>
+      </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+
+  </table>
+
+  <ul class="pagination row">
+    {% for i in 1..nbPages %}
+      {% if GET.numPage == i %}
+      <li class="active"><a href="archive.php?numPage={{i}}">{{i}}</a></li>
+      {% else %}
+      <li><a href="archive.php?numPage={{i}}">{{i}}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% else %}
+  <table class="table table-bordered">
+    <tr class="bg-primary">
+      <td>N°</td>
+      <td>Theme</td>
+      <td>Etat</td>
+      <td>Date</td>
+      <td>Actions</td>
+    </tr>
+
+    {% for demande in demandesAll %}
+    {% if demande.etatDemande == "Traitée" %}
+    <tr>
+      <td>{{demande.id}}</td>
+      <td>{{demande.libelleTheme}}</td>
+      <td>{{demande.etatDemande}}</td>
+      <td>{{demande.datePost|date('d/m/Y à H:i')}}</td>
+      <td>
+        <a href="offlineDemande.php?id_demande={{demande.id}}">
+          <button type="button" class="btn btn-success" name="button">Consulter</button>
+        </a>
+      </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </table>
+
+  <ul class="pagination">
+    {% for i in 1..nbPageDemandes %}
+    {% if GET.numPage == i %}
+    <li class="active"><a href="archive.php?numPage={{i}}">{{i}}</a></li>
+    {% else %}
+    <li><a href="archive.php?numPage={{i}}">{{i}}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+  {% endif %}
+
+</section>
+{% endblock %}

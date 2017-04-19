@@ -20,14 +20,20 @@ if (empty($_SESSION['user']['role']) || $_SESSION['user']['role'] == 1)
 require_once("../model/demandeModel.php");
 $demandeModel = new DemandeModel($connexion);
 
-
+//On est sur la page 1 par défaut
+if (empty($_GET['numPage']))
+{
+  $_GET['numPage'] = 1;
+}
 
 
 $template = $twig -> loadTemplate ('expert/expertHome.html.twig');
 echo $template -> render(
   array(
     'SESSION'=> $_SESSION,
-    'demandes'=> $demandeModel->get_demandesAll_byEtat("En attente"),
-    'POST'=>$_POST,
+    'demandes'=> $demandeModel->get_demandesAll_byEtat("En attente", $_GET['numPage'], 10),
+    'POST'=> $_POST,
+    'GET'=> $_GET,
+    'nbPageDemandes'=> $demandeModel->countPage_demandes(10,"En attente"),
 
   ));
