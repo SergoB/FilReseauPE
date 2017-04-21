@@ -11,8 +11,12 @@
     <div class="col-lg-6">
       <h3>Demande n°{{demande.id}}</h3>
 
-      {% if POST.validerReponse is not empty %}
-      <p class="alert alert-success">Votre réponse a bien été envoyée.</p>
+      {% if confirmationReponse is not null%}
+        <p class="alert alert-success">{{confirmationReponse}}</p>
+      {% endif %}
+
+      {% if erreurReponse is not null%}
+        <p class="alert alert-danger">{{erreurReponse}}</p>
       {% endif %}
     </div>
 
@@ -34,6 +38,9 @@
   <div class="corpsDemande row bg-success">
     <p class="col-lg-12"><i>Demande de {{demande.manager}} le {{demande.datePost|date('d/m/Y à h:m:s')}}</i></p>
     <p class="col-lg-12"><b>Description : </b> <br>{{demande.description}}</p>
+    {% if demande.pj is not empty %}
+    <p><b>Pièce jointe : </b><a href="{{demande.pj}}" target="_blank">Télécharger</a></p>
+    {% endif %}
   </div>
 
   {% for reponse in reponses %}
@@ -46,6 +53,9 @@
     <div class="corpsDemande row bg-success">
       <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
       <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
+      {% if reponse.pj is not empty %}
+      <p class="col-lg-12"><b>Pièce jointe : </b> <a href="{{reponse.pj}}" target="_blank">Télécharger</a></p>
+      {% endif %}
     </div>
     {% endif %}
   {% endfor %}
@@ -54,13 +64,14 @@
     celle-ci est en attente de traitement, ou en attente d'infos complémentaires -->
     {% if demande.etatDemande == "En attente" or demande.etatDemande == "Demande d'infos complémentaires" %}
     <h4>Répondre : </h4>
-      <form class="form row" action="managerConsulterDemande.php?id_demande={{demande.id}}" method="post">
+      <form class="form row" action="managerConsulterDemande.php?id_demande={{demande.id}}" method="post" enctype="multipart/form-data">
         <div class="input-group col-lg-8">
           <textarea name="reponseDemande" class="form-control" rows="8" cols="80" placeholder="(1000 caractères max)" name="contenuReponse" required="true"></textarea>
         </div>
 
         <div class="input-group col-xs-8">
           <label>Ajouter une pièce jointe :</label>
+          <p><i>(Formats autorisés : .pdf, .csv, .xls, .doc, .xlsx, .docx, .rar, .zip, .ppt, .jpg, .png, .gif)</i></p>
           <input type="file" name="pj">
           <br>
         </div>

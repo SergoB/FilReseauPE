@@ -6,10 +6,11 @@ session_start();
 // { Début - Première partie
 if(!empty($_POST) OR !empty($_FILES))
 {
+    
     $_SESSION['sauvegarde'] = $_POST ;
     $_SESSION['sauvegardeFILES'] = $_FILES ;
 
-    $fichierActuel = $_SERVER['PHP_SELF'] ;
+    $fichierActuel = $_SERVER['REQUEST_URI'] ;
     if(!empty($_SERVER['QUERY_STRING']))
     {
         $fichierActuel .= '?' . $_SERVER['QUERY_STRING'] ;

@@ -3,8 +3,11 @@
 
 {% block body %}
 <div class="container">
+  {% if erreurDemande is not null %}
+  <p class="alert alert-danger">{{erreurDemande}}</p>
+  {% endif %}
   <h1>Créer une nouvelle demande le {{date}}</h1>
-  <form action="managerSuivi.php" class="form" method="post">
+  <form action="managerSuivi.php" class="form" method="post" enctype="multipart/form-data">
 
     <h3>Informations sur la demande :</h3>
     <div class="input-group col-xs-8">
@@ -39,6 +42,7 @@
 
     <div class="input-group col-xs-8">
       <label>Ajouter une pièce jointe :</label>
+      <p><i>(Formats autorisés : .pdf, .csv, .xls, .doc, .xlsx, .docx, .rar, .zip, .ppt, .jpg, .png, .gif)</i></p>
       <input type="file" name="pj">
     </div>
 

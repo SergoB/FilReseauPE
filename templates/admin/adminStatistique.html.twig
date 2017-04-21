@@ -1,0 +1,17 @@
+{% extends 'admin/adminHome.html.twig' %}
+
+
+
+{% block body %}
+<h3>Statistiques : </h3>
+
+<h4>Test ajout fichier : </h4>
+<form class="form" action="adminStatistique.php" method="post" enctype="multipart/form-data">
+  <div class="input-group">
+    <input type="file" name="test">
+  </div>
+  <input type="submit" name="validerUpload" value="Envoyer">
+</form>
+<p>Résultat : {{verif_format}}</p>
+<p>{{confirmation}}</p>
+{% endblock %}

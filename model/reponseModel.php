@@ -49,7 +49,7 @@ class ReponseModel
 
     $reponses= $this->db->prepare
     ('
-      SELECT contenu, date, CONCAT(utilisateur.prenom, " ", utilisateur.nom) as auteur, utilisateur.role as auteurRole
+      SELECT contenu, date, CONCAT(utilisateur.prenom, " ", utilisateur.nom) as auteur, utilisateur.role as auteurRole, pj
       FROM reponse
       JOIN utilisateur ON reponse.id_auteur = utilisateur.id
       WHERE id_demande = ?

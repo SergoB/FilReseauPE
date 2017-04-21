@@ -8,8 +8,8 @@
   <!--Liste des demandes en attente ---------------->
 
   <h2>Mes demandes en attente de traitement</h2>
-  {% if POST.validerDemande is not empty %}
-  <p class="alert alert-info">Votre demande a bien été envoyée, elle sera traitée dans les plus brefs délais</p>
+  {% if confirmationDemande is not null %}
+  <p class="alert alert-success">{{confirmationDemande}}</p>
   {% endif %}
 
   {% if demandesEnAttente is empty%}

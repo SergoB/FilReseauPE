@@ -60,6 +60,7 @@ class DemandeModel
     JOIN etatDemande ON demande.id_etat = etatDemande.id
     WHERE demande.id_manager = ?
     AND etatDemande.libelle = ?
+    ORDER BY demande.id DESC
     ');
 
     $demandes->execute(array($id_manager,$etatDemande));
@@ -89,6 +90,7 @@ class DemandeModel
     JOIN theme ON demande.id_theme = theme.id
     JOIN etatDemande ON demande.id_etat = etatDemande.id
     WHERE etatDemande.libelle = ?
+    ORDER BY demande.id DESC
     LIMIT '.$firstResult. ',' . $nbparPage
     );
 
@@ -104,7 +106,7 @@ class DemandeModel
     ('
     SELECT demande.id, theme.libelle as libelleTheme, personne_concerne, id_concerne,
     etatDemande.libelle as etatDemande,datePost, CONCAT(utilisateur.prenom," ", utilisateur.nom) as manager, demande.description,
-    utilisateur.email as emailManager, agence.nom as nomAgence, agence.departement
+    utilisateur.email as emailManager, agence.nom as nomAgence, agence.departement, pj
     FROM demande
     JOIN utilisateur ON demande.id_manager = utilisateur.id
     JOIN theme ON demande.id_theme = theme.id
@@ -192,6 +194,7 @@ class DemandeModel
     WHERE demande.id = '. $condition_id_demande. '
     AND description LIKE'. $condition_keyword . '
     AND demande.id_theme = '. $condition_theme .'
+    ORDER BY demande.id DESC
     LIMIT '.$firstResult. ',' . $nbparPage
     );
 

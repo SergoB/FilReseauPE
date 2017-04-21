@@ -94,6 +94,9 @@
     <div class="corpsDemande row bg-success">
       <p class="col-lg-12"><i>{{demande.manager}} le {{demande.datePost|date('d/m/Y à H:i:s')}}</i></p>
       <p class="col-lg-12"><b>Description : </b> <br>{{demande.description}}</p>
+      {% if demande.pj is not empty %}
+      <p><b>Pièce jointe : </b><a href="{{demande.pj}}" target="_blank">Télécharger</a></p>
+      {% endif %}
     </div>
 
     <!-- Affichage de la liste des réponses à cette demande -->
@@ -107,6 +110,9 @@
     <div class="corpsDemande row bg-success">
       <p class="col-lg-12"><i>Réponse de {{reponse.auteur}} le {{reponse.date|date('d/m/Y à H:i:s')}}</i></p>
       <p class="col-lg-12"><b>Description : </b> <br>{{reponse.contenu}}</p>
+      {% if reponse.pj is not empty %}
+      <p class="col-lg-12"><b>Pièce jointe : </b> <a href="{{reponse.pj}}" target="_blank">Télécharger</a></p>
+      {% endif %}
     </div>
     {% endif %}
     {% endfor %}
