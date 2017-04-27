@@ -8,17 +8,18 @@
   margin-top:1%;
 }
 
+/*Couleur Bleu : #337ab7*/
+/*Couleur Orange : #f0ad4e*/
+
 .navbar{
   font-size: 18px;
   background-color: #337ab7;
-  color: white;
 }
 
 .navbar a{
   color: white;
   text-decoration: none;
 }
-
 
 .navElement{
   margin-top: 1%;
@@ -31,6 +32,8 @@
 .navElement a:hover{
   color:black;
 }
+
+
 /*=====FIN CSS du header=========*/
 
 

@@ -26,10 +26,18 @@ class UserModel
       $requete = $this->db->prepare
       ('
       INSERT INTO utilisateur(email,nom,prenom,mdp, id_agence)
-      VALUES (?,?,?,?,?)
+      VALUES (:email,:nom,:prenom,:mdp,:agence)
       ');
 
-      $requete->execute(array($email, $nom, $prenom, $mdp, $agence));
+      $requete->execute(
+        array(
+          'email' => $email,
+          'nom' => $nom,
+          'prenom' => $prenom,
+          'mdp' => $mdp,
+          'agence' => $agence
+        ));
+
       $requete->closeCursor();
 
       return "Votre compte a bien été créé";

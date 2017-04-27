@@ -12,11 +12,11 @@
       <h3>Demande n°{{demande.id}}</h3>
 
       {% if confirmationReponse is not null%}
-        <p class="alert alert-success">{{confirmationReponse}}</p>
+        <p class="alert alert-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>{{confirmationReponse}}</p>
       {% endif %}
 
       {% if erreurReponse is not null%}
-        <p class="alert alert-danger">{{erreurReponse}}</p>
+        <p class="alert alert-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> {{erreurReponse}}</p>
       {% endif %}
     </div>
 

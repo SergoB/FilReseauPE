@@ -1,0 +1,170 @@
+{% extends 'expert/expertHome.html.twig' %}
+
+
+
+{% block body %}
+<section>
+
+  {% if confirmationTache is not null %}
+  <p class="alert alert-success">
+    {{confirmationTache}}
+  </p>
+  {% endif %}
+
+  {% if erreurTache is not null %}
+  <p class="alert alert-danger">
+    {{erreurTache}}
+  </p>
+  {% endif %}
+
+  {% if GET.id_tache is not empty %}
+  <p class="alert alert-info">
+    la demande n°{{GET.id_tache}} a été marquée comme "traitée".
+  </p>
+  {% endif %}
+
+  <h4>Une tache urgente à réaliser ? Partagez l'un de vos dossiers avec les autres experts.
+    <a href="expertTache.php?ajouterTache=True">
+      <button type="button" class="btn btn-success" name="button"><span class="glyphicon glyphicon-file"></span> Nouvelle tâche</button>
+    </a>
+  </h4>
+
+  {% if GET.ajouterTache == 'True' %}
+  <form class="form" action="expertTache.php" method="post" enctype="multipart/form-data">
+    <div class="input-group">
+      <label>Description de la tâche : </label>
+      <textarea name="descriptionTache" class="form-control" rows="8" cols="80" placeholder="Décrivez cette tâche le plus précisément possible (500 caractères max)" required="true"></textarea>
+    </div>
+
+    <div class="input-group">
+      <br>
+      <p class="alert alert-info"> <span class="glyphicon glyphicon-info-sign"></span>  Votre tâche peut contenir jusqu'à 20 fichiers différents. <br>
+        Pour ajouter un fichier supplémentaire, maintenez la touche "CTRL" de votre clavier en cliquant sur un autre fichier dans l'explorateur. <br>
+      </p>
+      <input type="file" multiple name="tacheFichiers[]"> <br>
+      <p><i>(Fichiers autorisés : .csv, .doc, .xls, .pdf, .xlsx, .docx)</i></p>
+    </div>
+
+    <div class="input-group">
+      <br>
+      <label>Date limite pour traitement : </label>
+      <input type="date" name="deadline" class="form-control">
+    </div>
+
+    <div class="input-group">
+      <br>
+      <input type="submit" class="btn btn-primary" name="validerTache">
+    </div>
+  </form>
+  {% endif %}
+
+  <hr>
+
+  <!--  TACHES EN ATTENTE  -->
+  <h3>Liste des tâches en attente de traitement : </h3>
+
+  {% if tachesEnAttente is empty %}
+  <h4>Aucune tache en attente de traitement.</h4>
+  {% else %}
+  <p class="alert alert-warning">
+    <span class="glyphicon glyphicon-alert"></span>
+    Merci de traiter en priorité les tâches qui sont à réaliser avant la fin de la semaine.
+  </p>
+  <table class="table table-bordered">
+    <tr>
+      <td>N°</td>
+      <td>Description</td>
+      <td>Proposée par</td>
+      <td>Fichier(s)</td>
+      <td>A traiter avant le</td>
+      <td>Action</td>
+    </tr>
+
+    {% for tache in tachesEnAttente %}
+    <tr>
+      <td>{{tache.id}}</td>
+      <td>{{tache.description}}</td>
+      <td>{{tache.auteur}}</td>
+      <td>
+        {% for fichier in tacheModel.get_fichiers_byTache(tache.id) %}
+          <li>
+            <a href="{{fichier.path}}" target="_blank">{{fichier.name}}</a>
+          </li>
+        {% endfor %}
+      </td>
+      <td>
+        {{tache.deadline|date('d/m/Y')}}
+        {% if tache.deadline|date('W') == 'now'|date('W') %}
+        <span class="glyphicon glyphicon-time"></span>
+        {% endif %}
+      </td>
+      <td>
+        <a href="expertTache.php?id_tache={{tache.id}}">
+          <button type="button" class="btn btn-success" name="button">Marquer comme "Traitée"</button>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+
+  </table>
+
+  <ul class="pagination row">
+    {% for i in 1..nbPagesTachesAttente %}
+    {% if GET.numPage == i %}
+    <li class="active"><a href="expertTache.php?numPage={{i}}">{{i}}</a></li>
+    {% else %}
+    <li><a href="expertTache.php?numPage={{i}}">{{i}}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+  {% endif %}
+
+  <hr>
+
+  <!--  TACHES REALISEES -->
+  <h3>Liste des tâches traitées : </h3>
+
+  {% if tachesRealisees is empty %}
+  <h4>Aucune tache n'a été traitée pour le moment.</h4>
+  {% else %}
+  <table class="table table-bordered">
+    <tr>
+      <td>N°</td>
+      <td>Traitée par</td>
+      <td>Description</td>
+      <td>Fichier(s)</td>
+    </tr>
+
+    {% for tache in tachesRealisees %}
+    <tr>
+      <td>{{tache.id}}</td>
+      <td>{{tache.traiteur}}</td>
+      <td>{{tache.description}}</td>
+      <td>
+        {% for fichier in tacheModel.get_fichiers_byTache(tache.id) %}
+          <li>
+            <a href="{{fichier.path}}" target="_blank">{{fichier.name}}</a>
+          </li>
+        {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+
+  </table>
+
+  <ul class="pagination row">
+    {% for i in 1..nbPagesTachesRealise %}
+    {% if GET.numPage == i %}
+    <li class="active"><a href="expertTache.php?numPage={{i}}">{{i}}</a></li>
+    {% else %}
+    <li><a href="expertTache.php?numPage={{i}}">{{i}}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+  {% endif %}
+
+</section>
+
+{% endblock %}

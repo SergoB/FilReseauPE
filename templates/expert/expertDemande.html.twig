@@ -8,7 +8,7 @@
   {% if demande is not empty %}
   <div class="row">
     <div class="col-lg-6">
-      <h3>Demande n°{{demande.id}}</h3>
+      <h3><span class="glyphicon glyphicon-folder-open"></span>  Demande n°{{demande.id}}</h3>
 
       {% if POST.validerPostit is not empty %}
       <p class="alert alert-success">Votre postit a bien été ajouté et la demande a été archivée.</p>
@@ -34,13 +34,13 @@
 
     <div class="col-lg-3">
       <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=epingler">
-        <button type="button" class="btn btn-success" name="button">Epingler la demande</button>
+        <button type="button" class="btn btn-success" name="button"><span class="glyphicon glyphicon-pushpin"></span> Epingler la demande</button>
       </a>
     </div>
 
     <div class="col-lg-3">
       <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=archiver">
-        <button type="button" class="btn btn-warning" name="button">Archiver la demande</button>
+        <button type="button" class="btn btn-warning" name="button"><span class="glyphicon glyphicon-file"></span>  Archiver la demande</button>
       </a>
     </div>
 
@@ -120,15 +120,15 @@
     <!-- L'expert choisit son action pour cette demande -->
     <div class="row choixActionDemande">
       <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=traiter">
-        <button type="button" class="btn btn-success" name="button">Traiter la demande</button>
+        <button type="button" class="btn btn-success" name="button"><span class="glyphicon glyphicon-check"></span>  Traiter la demande</button>
       </a>
 
       <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=demanderInfoComp">
-        <button type="button" class="btn btn-warning" name="button">Demander des informations complémentaires</button>
+        <button type="button" class="btn btn-warning" name="button"><span class="glyphicon glyphicon-envelope"></span>  Demander des informations complémentaires</button>
       </a>
 
       <a href="expertDemande.php?id_demande={{demande.id}}&amp;choixAction=envoyerNational">
-        <button type="button" class="btn btn-danger" name="button">Envoyer au national</button>
+        <button type="button" class="btn btn-danger" name="button"><span class="glyphicon glyphicon-road"></span>  Envoyer au national</button>
       </a>
     </div>
 

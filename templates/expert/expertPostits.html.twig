@@ -4,8 +4,49 @@
 
 {% block body %}
 <section>
-  <h3>Liste des post-its actuellement sur la page d'accueil : </h3>
 
+  {% if POST.validerModif %}
+    <p class="alert alert-success">Le post-it a bien été modifié.</p>
+  {% endif %}
+
+  {% if postit is not null %}
+    <h3>Edition du post-it n°{{postit.id}} : </h3>
+
+    <form class="form" action="expertPostits.php" method="post">
+      <div class="input-group col-xs-8">
+        <label>Titre : </label>
+        <input class="form-control" type="text" name="titrePostit" placeholder="Saisissez un titre pour votre post-it" required="true" value="{{postit.titre}}">
+      </div>
+
+      <input type="hidden" name="id_postit" value="{{postit.id}}">
+
+      <div class="input-group col-xs-8">
+        <label>Question type : </label>
+        <textarea name="questionType" class="form-control" rows="4" cols="80" required="true">{{postit.questionType}}</textarea>
+      </div>
+
+      <div class="input-group col-xs-8">
+        <label>Réponse type : </label>
+        <textarea name="reponseType" class="form-control" rows="4" cols="80" placeholder="Saisissez une réponse type à cette question." required="true">{{postit.reponseType}}</textarea>
+      </div>
+
+      <div class="input-group">
+        <br>
+        <input type="submit" name="validerModif" class="btn btn-primary" value="Confirmer la modification">
+      </div>
+    </form>
+  {% endif %}
+
+
+  <h3>Liste des post-its actuellement sur la page d'accueil : </h3>
+  {% if confirmSuppression is not null %}
+  <p class="alert alert-danger">{{confirmSuppression}}</p>
+  {% endif %}
+
+  {% if postits is empty %}
+  <h4>Aucun post-it n'est affiché sur la page d'accueil pour le moment</h4>
+
+  {% else %}
   <table class="table table-bordered">
     <tr>
       <td>N°</td>
@@ -26,7 +67,7 @@
           <button type="button" class="btn btn-primary" name="button">Modifier</button>
         </a>
 
-        <a href="expertPostits.php?choix=delete&amp;id_postit={{postit.id}}">
+        <a href="expertPostits.php?choix=delete&amp;id_postit={{postit.id}}" onclick="return confirm('Le post-it n°{{postit.id}} va être supprimé.')">
           <button type="button" class="btn btn-danger" name="button">Supprimer</button>
         </a>
       </td>
@@ -43,6 +84,7 @@
     {% endif %}
     {% endfor %}
   </ul>
+  {% endif %}
 
 </section>
 {% endblock %}

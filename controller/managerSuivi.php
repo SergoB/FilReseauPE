@@ -38,11 +38,23 @@ if(!empty($_POST) OR !empty($_FILES))
         //On ne va ajouter le fichier que si celui-ci a bien été upload dans le dossier temporaire
         if (is_uploaded_file($_FILES['pj']['tmp_name']))
         {
-          $path_name = "../upload/".$_SESSION['user']['id'].$_FILES['pj']['name'];
+          //On récupère l'ID de la demande qui va être créée
+          $id_demande = $demandeModel->get_current_demandeID();
+          //On défini le nom du futur dossier contenant les PJ
+          $dossier = "../upload/demande/".$id_demande."/";
+
+          //On créé un nouveau dossier pour la demande
+          if (!is_dir($dossier))
+          {
+            mkdir($dossier, 0777);
+          }
+
+          $path_name = $dossier.$_SESSION['user']['id'].$_FILES['pj']['name'];
           //on ajoute ce fichier dans notre dossier upload
           $resultat = move_uploaded_file($_FILES['pj']['tmp_name'],$path_name);
           if ($resultat)
           {
+
             //On ajoute la demande
             $demandeModel->add_demande(
               $_POST['personneConcerne'],

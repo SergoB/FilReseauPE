@@ -49,6 +49,20 @@ class DemandeModel
   }
 
 
+  //Fonction qui retourne l'id de la demande qui est sur le point d'être ajoutée
+  function get_current_demandeID()
+  {
+    $getID = $this->db->prepare
+    ('
+      SELECT max(id)+1 currentID
+      FROM demande
+    ');
+
+    $getID->execute();
+
+    return $getID->fetch()['currentID'];
+  }
+
   //Récupère la liste des demandes d'un manager pour un état donné en paramètre
   function get_demandes_byManager($id_manager, $etatDemande)
   {

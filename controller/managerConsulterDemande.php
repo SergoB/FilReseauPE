@@ -42,7 +42,16 @@ if(!empty($_POST) OR !empty($_FILES))
         //On ne va ajouter le fichier que si celui-ci a bien été upload dans le dossier temporaire
         if (is_uploaded_file($_FILES['pj']['tmp_name']))
         {
-          $path_name = "../upload/".$_SESSION['user']['id'].$_FILES['pj']['name'];
+          //On défini le nom du futur dossier contenant les PJ
+          $dossier = "../upload/demande/".$_GET['id_demande']."/";
+
+          //On créé un nouveau dossier pour la demande
+          if (!is_dir($dossier))
+          {
+            mkdir($dossier, 0777);
+          }
+
+          $path_name = $dossier.$_SESSION['user']['id'].$_FILES['pj']['name'];
           //on ajoute ce fichier dans notre dossier upload
           $resultat = move_uploaded_file($_FILES['pj']['tmp_name'],$path_name);
           if ($resultat)
@@ -68,7 +77,7 @@ if(!empty($_POST) OR !empty($_FILES))
       //L'extensiion du fichier n'est pas dans le tableau des formats autorisés
       else
       {
-        $_SESSION['ErreurReponse'] = "Erreur : Le format ".$file_extension." n'est pas autorisé. La réponse n'a pas pu être envoyée";
+        $_SESSION['ErreurReponse'] = "Le format ".$file_extension." n'est pas autorisé. La réponse n'a pas pu être envoyée";
       }
     }
 

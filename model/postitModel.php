@@ -41,6 +41,43 @@ class PostitModel
     $postit->closeCursor();
   }
 
+  //Modifier un postit selon son id
+  function edit_postit($id_postit, $titre, $questionType, $reponseType)
+  {
+
+    $postit = $this->db->prepare
+    ('
+      UPDATE postit
+      SET questionType = :questionType, reponseType = :reponseType, titre = :titre
+      WHERE id = :id_postit
+    ');
+
+    $postit->execute(
+      array(
+        'titre'=>$titre,
+        'questionType'=>$questionType,
+        'reponseType'=>$reponseType,
+        'id_postit'=>$id_postit,
+        ));
+
+    $postit->closeCursor();
+  }
+
+  //supprime un postit
+  function delete_postit($id)
+  {
+
+    $requete = $this->db->prepare
+    ('
+    DELETE FROM postit
+    WHERE id=?
+    ');
+
+    $requete->execute(array($id));
+    $requete->closeCursor();
+
+  }
+
   //liste des post-its avec les infos concernant l'auteur expert
   function get_postits($numPage,$nbparPage)
   {

@@ -22,6 +22,34 @@ require_once("../model/postitModel.php");
 $postitModel = new PostitModel($connexion);
 
 
+//Gestion de la suppression des postits
+if (!empty($_GET['id_postit']) && $_GET['choix']=='delete' )
+{
+  $postitModel->delete_postit($_GET['id_postit']);
+  $confirmSuppression = "Le postit n°".$_GET['id_postit']." a bien été supprimé";
+}
+else
+{
+  $confirmSuppression = NULL;
+}
+
+//Gestion de la modification des postits
+if (!empty($_GET['id_postit']) && $_GET['choix']=='edit' )
+{
+  $postit= $postitModel->get_postit($_GET['id_postit']);
+}
+else
+{
+  $postit = NULL;
+}
+
+//Confirmation de la modification du postit
+if (!empty($_POST['validerModif']))
+{
+  $postitModel->edit_postit($_POST['id_postit'], $_POST['titrePostit'], $_POST['questionType'], $_POST['reponseType']);
+}
+
+
 //On est sur la page 1 par défaut
 if (empty($_GET['numPage']))
 {
@@ -36,4 +64,6 @@ echo $template -> render(
     'GET'=>$_GET,
     'postits'=> $postitModel->get_postits($_GET['numPage'], 10),
     'nbPage'=>$postitModel->count_nbPage(10),
+    'confirmSuppression' => $confirmSuppression,
+    'postit'=> $postit,
   ));

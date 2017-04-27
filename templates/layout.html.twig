@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="../templates/css/bootstrap.css">
+  <!-- <link rel="stylesheet" href="../templates/css/bootstrap.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="../templates/css/style.css">
 
   <title>Fil Réseau : Votre outil de gestion des demandes</title>
@@ -41,16 +42,16 @@
 
     {% if SESSION.user is null %}
     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 blocUser">
+      {% if erreurConnect is not null %}
+      <p class="text-danger"> <span class="glyphicon glyphicon-alert"></span> {{erreurConnect}}</p>
+      {% endif %}
       {% include 'connexion.html.twig' %}
     </div>
-    {% if erreurConnect is not null %}
-    <p>{{erreurConnect}}</p>
-    {% endif %}
 
     {% else %}
     <div class="col-lg-3 connected">
       <h4>Connecté en tant que {{SESSION.user.prenom}}</h4>
-      <a href="deconnexion.php">Se déconnecter</a>
+      <a href="deconnexion.php"><button type="button" class="btn btn-danger" name="button"><span class="glyphicon glyphicon-off"></span> Déconnexion</button></a>
     </div>
     {% endif %}
   </div>
@@ -81,11 +82,11 @@
     {% if confirmInscription is not null %}
     <p class="alert alert-success">{{confirmInscription}}</p>
     {% endif %}
-    <h2>Bienvenue sur Fil Réseau : Votre platforme de gestion des demandes.</h2>
 
-    <h3>Fil d'actualité : {{test}}</h3>
-    <p class="alert alert-info">Les questions et réponses suivantes ont été jugées utiles.
-      Si la réponse à votre demande n'y apparait pas, vous pouvez formuler une nouvelle demande en vous connectant à la platforme en tant que Manager.
+    <h3><span class="glyphicon glyphicon-globe"></span>  Fil d'actualité : {{test}}</h3>
+    <p class="alert alert-info">
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Si la réponse à votre demande n'apparait pas dans le fil d'actualité, vous pouvez formuler une nouvelle demande en vous connectant à la platforme en tant que Manager.
     </p>
 
     {% if postits is empty %}
